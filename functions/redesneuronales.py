@@ -8,7 +8,8 @@ def initeparametros(dimensiones):
 
     for l in range(1, L):           
         parametros["W" + str(l)] = np.random.randn(
-            dimensiones[l], dimensiones[l - 1]) * 0.01
+            #0.01
+            dimensiones[l], dimensiones[l - 1]) * 10
         parametros["b" + str(l)] = np.zeros((dimensiones[l], 1))
 
         assert parametros["W" + str(l)].shape == (
@@ -178,3 +179,6 @@ def update_parametros(parametros, grados, curvaaprendisaje):
             "b" + str(l)] - curvaaprendisaje * grados["db" + str(l)]
 
     return parametros
+
+
+       

@@ -7,7 +7,6 @@ from load_dataset import load_dataset
 from redesneuronales import (initeparametros,sigmoid,tanh,relu,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros)
 
 
-
 # se importa el data
 X_circulo, y_circulo = load_dataset("../data/circulodata")
 index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
@@ -35,16 +34,58 @@ Test: {X_test.shape}, {y_test.shape}""")
 X_circulo = X_circulo / 255
 X_test = X_test / 255
 
+def inicializar_parametros_2(dimensiones, initialization_method="he"):
+    np.random.seed(1)               
+    parametros = {}                 
+    L = len(dimensiones)            
+
+    if initialization_method == "he":
+        for l in range(1, L):
+            parametros["W" + str(l)] = np.random.randn(
+                dimensiones[l],
+                dimensiones[l - 1]) * np.sqrt(2 / dimensiones[l - 1])
+            parametros["b" + str(l)] = np.zeros((dimensiones[l], 1))
+    elif initialization_method == "xavier":
+        for l in range(1, L):
+            parametros["W" + str(l)] = np.random.randn(
+                dimensiones[l],
+                dimensiones[l - 1]) * np.sqrt(1 / dimensiones[l - 1])
+            parametros["b" + str(l)] = np.zeros((dimensiones[l], 1))
+
+    return parametros
+       
+def inicializar_parametros_cero(dimensiones):
+    np.random.seed(1)               
+    parametros = {}                 
+    L = len(dimensiones)            
+
+    for l in range(1, L):
+        parametros["W" + str(l)] = np.zeros(
+            (dimensiones[l], dimensiones[l - 1]))
+        parametros["b" + str(l)] = np.zeros((dimensiones[l], 1))
+
+    return parametros
+
+
 def gradiente_aprendisaje(
         X, y, dimensiones, curvaaprendisaje=0.01, num_iterations=1000,
-        print_costo=True, theta="relu"):
+        print_costo=True, theta="relu", initialization_method="he" ):
    
     np.random.seed(1)
 
   
-    parametros = initeparametros(dimensiones)
+    #parametros = initeparametros(dimensiones)
 
     costo_list = []
+
+    if initialization_method == "zeros":
+        parametros = inicializar_parametros_cero(dimensiones)
+    elif initialization_method == "random":
+        parametros = initialize_parameters_random(dimensiones)
+    else:
+        parametros = inicializar_parametros_2(
+            dimensiones, initialization_method)
+
 
     for i in range(num_iterations):
         
@@ -91,3 +132,14 @@ parametros_relu = gradiente_aprendisaje(
     theta="relu")
 
 accuracy(X_test, parametros_relu, y_test, activacion="relu")
+
+
+parametros_tanh = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
+                   initialization_method="he")
+
+accuracy(X_test, parametros_tanh, y_test, "tanh")
+
+parametros_tanh = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
+                   initialization_method="xavier")
+
+accuracy(X_test, parametros_tanh, y_test, "tanh")
