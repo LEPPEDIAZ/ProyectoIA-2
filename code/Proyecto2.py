@@ -25,12 +25,24 @@ plt.axis("off")
 plt.subplot(1, 2, 2)
 plt.imshow(X_test[:, index_circulo].reshape(150, 150, 3))
 plt.axis("off");
+#se importa cuadrado
+X_cuadrado, y_cuadrado = load_dataset("../data/cuadrado")
+index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
+plt.subplot(1, 2, 1)
+plt.imshow(X_cuadrado[:, index_dibujo].reshape(150, 150, 3))
+plt.axis("off")
+plt.subplot(1, 2, 2)
+plt.imshow(X_cuadrado[:, index_cuadrado].reshape(150, 150, 3))
+plt.axis("off");
 
 
-print(f"""Dimensiones originales:\n{20 * '-'}\nData de prueba: {X_circulo.shape}, {y_circulo.shape}
+
+print(f"""Dimensiones originales para el cuadrado:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
+Test: {X_test.shape}, {y_test.shape}""")
+print(f"""Dimensiones originales para el circulo:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 
-
+X_cuadrado = X_cuadrado / 255
 X_circulo = X_circulo / 255
 X_test = X_test / 255
 
@@ -140,6 +152,33 @@ parametros_tanh = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta
 accuracy(X_test, parametros_tanh, y_test, "tanh")
 
 parametros_tanh = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
+                   initialization_method="xavier")
+
+accuracy(X_test, parametros_tanh, y_test, "tanh")
+
+print("se calcula el cuadrado")
+
+dimensiones = [X_cuadrado.shape[0], 5, 5, 1]
+
+parametros_tanh = gradiente_aprendisaje(
+    X_cuadrado, y_cuadrado, dimensiones, curvaaprendisaje=0.03, num_iterations=1000,
+    theta="tanh")
+
+accuracy(X_test, parametros_tanh, y_test, activacion="tanh")
+
+parametros_relu = gradiente_aprendisaje(
+    X_cuadrado, y_cuadrado, dimensiones, curvaaprendisaje=0.03, num_iterations=1000,
+    theta="relu")
+
+accuracy(X_test, parametros_relu, y_test, activacion="relu")
+
+
+parametros_tanh = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
+                   initialization_method="he")
+
+accuracy(X_test, parametros_tanh, y_test, "tanh")
+
+parametros_tanh = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
                    initialization_method="xavier")
 
 accuracy(X_test, parametros_tanh, y_test, "tanh")
