@@ -179,6 +179,29 @@ def update_parametros(parametros, grados, curvaaprendisaje):
             "b" + str(l)] - curvaaprendisaje * grados["db" + str(l)]
 
     return parametros
+def predict(X, y, parametros):
+    m = X.shape[1]
+    p = np.zeros((1,m), dtype = np.int)
+    a3, caches = feed_foward_model(X, parametros)
+    for i in range(0, a3.shape[1]):
+        if a3[0,i] > 0.5:
+            p[0,i] = 1
+        else:
+            p[0,i] = 0
+    print("predict1: "  + str(np.mean((p[0,:] == y[0,:]))))
+    return p
+def predict2( X, y, parametros):
+    m = X.shape[1]
+    n = len(parametros)
+    p = np.zeros((1,m))
+    probas, caches = feed_foward_model(X, parametros)
+    for i in range(0, probas.shape[1]):
+        #if probas[0,i] &amp;&gt; 0.5:
+        if probas[0,i] and probas > 0.5:
+            p[0,i] = 1
+        else:
+            p[0,i] = 0
 
-
-       
+    print("predict2: "  + str(np.sum((p == y)/m)))
+ 
+    return p

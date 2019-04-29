@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 sys.path.append("../functions/")
 from load_dataset import load_dataset
-from redesneuronales import (initeparametros,sigmoid,tanh,relu,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros)
+from redesneuronales import (initeparametros,sigmoid,tanh,relu,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2)
 
 
 # se importa el data
@@ -138,14 +138,15 @@ parametros_relu = gradiente_aprendisaje(
     theta="relu")
 
 accuracy(X_test, parametros_relu, y_test, activacion="relu")
-
+pred_train = predict(X_test, y_test, parametros_relu)
+pred_train = predict2(X_test, y_test, parametros_relu)
 
 parametros_tanh = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
                    initialization_method="he")
 
 accuracy(X_test, parametros_tanh, y_test, "tanh")
-
-
+pred_train = predict(X_test, y_test, parametros_tanh)
+pred_train = predict2(X_test, y_test, parametros_relu)
 
 print("se calcula el cuadrado")
 
@@ -156,9 +157,12 @@ parametros_relu = gradiente_aprendisaje(
     theta="relu")
 
 accuracy(X_test, parametros_relu, y_test, activacion="relu")
-
-
+pred_train = predict(X_test, y_test, parametros_relu)
+pred_train = predict2(X_test, y_test, parametros_relu)
 parametros_tanh = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
                    initialization_method="he")
 
 accuracy(X_test, parametros_tanh, y_test, "tanh")
+
+pred_train = predict(X_test, y_test, parametros_tanh)
+pred_train = predict2(X_test, y_test, parametros_tanh)
