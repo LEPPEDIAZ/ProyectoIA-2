@@ -10,30 +10,15 @@ from redesneuronales import (initeparametros,sigmoid,tanh,relu,leaky_relu,feed_f
 # se importa el data
 X_circulo, y_circulo = load_dataset("../data2")
 index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
-plt.subplot(1, 2, 1)
-plt.imshow(X_circulo[:, index_dibujo].reshape(150, 150, 3))
-plt.axis("off")
-plt.subplot(1, 2, 2)
-plt.imshow(X_circulo[:, index_circulo].reshape(150, 150, 3))
-plt.axis("off");
 
+#se importa data del circulo
 X_test, y_test = load_dataset("../dibujo")
 index_dibujo = np.argmax(y_test); index_circulo = np.argmin(y_test)
-plt.subplot(1, 2, 1)
-plt.imshow(X_test[:, index_dibujo].reshape(150, 150, 3))
-plt.axis("off")
-plt.subplot(1, 2, 2)
-plt.imshow(X_test[:, index_circulo].reshape(150, 150, 3))
-plt.axis("off");
+
 #se importa cuadrado
 X_cuadrado, y_cuadrado = load_dataset("../data")
 index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
-plt.subplot(1, 2, 1)
-plt.imshow(X_cuadrado[:, index_dibujo].reshape(150, 150, 3))
-plt.axis("off")
-plt.subplot(1, 2, 2)
-plt.imshow(X_cuadrado[:, index_cuadrado].reshape(150, 150, 3))
-plt.axis("off");
+
 
 
 print(f"""Dimensiones originales para el circulo:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
@@ -112,12 +97,6 @@ def gradiente_aprendisaje(
         if i % 100 == 0:
             costo_list.append(costo)
 
-  
-    plt.figure(figsize=(10, 6))
-    plt.plot(costo_list)
-    plt.xlabel("Iterations (per hundreds)")
-    plt.ylabel("Loss")
-    plt.title(f"Loss curve for the learning rate = {curvaaprendisaje}")
 
     return parametros
 
