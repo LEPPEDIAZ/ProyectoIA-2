@@ -9,7 +9,7 @@ white = (255, 255, 255)
 green = (0,128,0)
 
 def save():
-    filename = "../data/dibujo/test.test.jpg"
+    filename = "../dibujo/test.dibujo.jpg"
     image1.save(filename)
 def paint(event):
     x1, y1 = (event.x - 1), (event.y - 1)

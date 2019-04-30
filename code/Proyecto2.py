@@ -8,7 +8,7 @@ from redesneuronales import (initeparametros,sigmoid,tanh,relu,leaky_relu,feed_f
 
 
 # se importa el data
-X_circulo, y_circulo = load_dataset("../data/circulodata")
+X_circulo, y_circulo = load_dataset("../data2")
 index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
 plt.subplot(1, 2, 1)
 plt.imshow(X_circulo[:, index_dibujo].reshape(150, 150, 3))
@@ -17,7 +17,7 @@ plt.subplot(1, 2, 2)
 plt.imshow(X_circulo[:, index_circulo].reshape(150, 150, 3))
 plt.axis("off");
 
-X_test, y_test = load_dataset("../data/dibujo")
+X_test, y_test = load_dataset("../dibujo")
 index_dibujo = np.argmax(y_test); index_circulo = np.argmin(y_test)
 plt.subplot(1, 2, 1)
 plt.imshow(X_test[:, index_dibujo].reshape(150, 150, 3))
@@ -26,7 +26,7 @@ plt.subplot(1, 2, 2)
 plt.imshow(X_test[:, index_circulo].reshape(150, 150, 3))
 plt.axis("off");
 #se importa cuadrado
-X_cuadrado, y_cuadrado = load_dataset("../data/cuadrado")
+X_cuadrado, y_cuadrado = load_dataset("../data")
 index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
 plt.subplot(1, 2, 1)
 plt.imshow(X_cuadrado[:, index_dibujo].reshape(150, 150, 3))
@@ -80,7 +80,7 @@ def inicializar_parametros_cero(dimensiones):
 
 
 def gradiente_aprendisaje(
-        X, y, dimensiones, curvaaprendisaje=0.01, num_iterations=1000,
+        X, y, dimensiones, curvaaprendisaje=0.01, num_iterations=500,
         print_costo=True, theta="relu", initialization_method="he" ):
    
     np.random.seed(1)
@@ -134,10 +134,10 @@ print("se calcula el circulo")
 dimensiones = [X_circulo.shape[0], 5, 5, 1]
 
 parametros_relu = gradiente_aprendisaje(
-    X_circulo, y_circulo, dimensiones, curvaaprendisaje=0.03, num_iterations=1000,
+    X_circulo, y_circulo, dimensiones, curvaaprendisaje=0.03, num_iterations=500,
     theta="relu")
 
-accuracy(X_test, parametros_relu, y_test, activacion="relu")
+accuracy(X_circulo, parametros_relu, y_circulo, activacion="relu")
 pred_train = predict(X_test, y_test, parametros_relu)
 pred_train = predict2(X_test, y_test, parametros_relu)
 
@@ -153,11 +153,11 @@ print("se calcula el cuadrado")
 dimensiones = [X_cuadrado.shape[0], 5, 5, 1]
 
 parametros_relu = gradiente_aprendisaje(
-    X_cuadrado, y_cuadrado, dimensiones, curvaaprendisaje=0.03, num_iterations=1000,
+    X_cuadrado, y_cuadrado, dimensiones, curvaaprendisaje=0.03, num_iterations=500,
     theta="relu")
 
-accuracy(X_test, parametros_relu, y_test, activacion="relu")
-pred_train = predict(X_test, y_test, parametros_relu)
+accuracy(X_cuadrado, parametros_relu, y_test, activacion="relu")
+pred_train = predict(X_test, y_cuadrado, parametros_relu)
 pred_train = predict2(X_test, y_test, parametros_relu)
 parametros_tanh = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
                    initialization_method="he")
