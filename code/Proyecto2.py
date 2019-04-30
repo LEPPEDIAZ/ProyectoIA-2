@@ -144,7 +144,7 @@ pred_train = predict2(X_test, y_test, parametros_relu)
 parametros_tanh = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
                    initialization_method="he")
 
-accuracy(X_test, parametros_tanh, y_test, "tanh")
+accuracy(X_circulo, parametros_tanh,y_circulo, "tanh")
 pred_train = predict(X_test, y_test, parametros_tanh)
 pred_train = predict2(X_test, y_test, parametros_relu)
 
@@ -156,13 +156,13 @@ parametros_relu = gradiente_aprendisaje(
     X_cuadrado, y_cuadrado, dimensiones, curvaaprendisaje=0.03, num_iterations=500,
     theta="relu")
 
-accuracy(X_cuadrado, parametros_relu, y_test, activacion="relu")
-pred_train = predict(X_test, y_cuadrado, parametros_relu)
+accuracy(X_cuadrado, parametros_relu, y_cuadrado, activacion="relu")
+pred_train = predict(X_test, y_test, parametros_relu)
 pred_train = predict2(X_test, y_test, parametros_relu)
 parametros_tanh = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
                    initialization_method="he")
 
-accuracy(X_test, parametros_tanh, y_test, "tanh")
+accuracy(X_cuadrado, parametros_tanh, y_cuadrado, "tanh")
 
 pred_train = predict(X_test, y_test, parametros_tanh)
 pred_train = predict2(X_test, y_test, parametros_tanh)
