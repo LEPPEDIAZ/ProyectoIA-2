@@ -73,8 +73,13 @@ def feed_act_forward(anterior, W, b, activacion):
     cache = (linear_cache, activation_cache)
 
     return A, cache
-
-
+def linear_forward(A, W, b):
+    Z = np.dot(W, A) + b
+ 
+    assert(Z.shape == (W.shape[0], A.shape[1]))
+    cache = (A, W, b)
+ 
+    return Z, cache
 def feed_foward_model(X, parametros, theta="relu"):
     
     A = X                           
