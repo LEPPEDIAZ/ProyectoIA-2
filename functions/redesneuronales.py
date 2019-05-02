@@ -33,6 +33,10 @@ def sigmoid(Z):
     A = 1 / (1 + np.exp(-Z))
     return A, Z
 
+def sigmoid2(Z):
+    A = 1 / (1 + np.exp(-Z))
+    cache = Z
+    return A, cache
 def tanh(Z):
     A = np.tanh(Z)
     return A, Z
@@ -40,7 +44,11 @@ def tanh(Z):
 def relu(Z):
     A = np.maximum(0, Z)
     return A, Z
-
+def relu2(Z):
+    A = np.maximum(0,Z)
+    assert(A.shape == Z.shape)
+    cache = Z
+    return A, cache
 def leaky_relu(Z):
     A = np.maximum(0.1 * Z, Z)
     return A, Z
