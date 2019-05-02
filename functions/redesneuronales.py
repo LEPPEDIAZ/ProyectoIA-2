@@ -17,7 +17,18 @@ def initeparametros(dimensiones):
         assert parametros["b" + str(l)].shape == (dimensiones[l], 1)
 
     return parametros
-
+def initeparametros2(dimensiones):
+    parametros = {}
+    L = len(dimensiones)            
+ 
+    for l in range(1, L):
+        parametros['W' + str(l)] = np.random.randn(dimensiones[l], dimensiones[l-1]) / np.sqrt(dimensiones[l-1])
+        parametros['b' + str(l)] = np.zeros((dimensiones[l], 1))
+ 
+        assert(parametros['W' + str(l)].shape == (dimensiones[l], dimensiones[l-1]))
+        assert(parametros['b' + str(l)].shape == (dimensiones[l], 1))
+ 
+    return parametros
 def sigmoid(Z):
     A = 1 / (1 + np.exp(-Z))
     return A, Z
