@@ -10,6 +10,10 @@ from redesneuronales import (initeparametros,sigmoid,tanh,relu,leaky_relu,feed_f
 # se importa el data
 X_circulo, y_circulo = load_dataset("../data2")
 index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
+#loading data
+#circulo_X_orig=np.array(X_circulo["circulo_X_orig"][:])
+#circulo_y_orig=np.array(y_circulo["circulo_y_orig"][:])
+#circulo_set_y = y_circulo.reshape((1, y_circulo.shape[0]))
 
 #se importa data del circulo
 X_test, y_test = load_dataset("../dibujo")
@@ -18,15 +22,25 @@ index_dibujo = np.argmax(y_test); index_circulo = np.argmin(y_test)
 #se importa cuadrado
 X_cuadrado, y_cuadrado = load_dataset("../data")
 index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
-
-
-
+#resshape origin and examples
+circulo_set_x_flatten = X_circulo.reshape(X_circulo.shape[0], -1).T
+cuadrado_set_x_flatten = X_cuadrado.reshape(X_cuadrado.shape[0], -1).T
+test_set_x_flatten = X_test.reshape(X_test.shape[0], -1).T
+#se tienen 5 capas, input, output y 3 capas escondidas
+#constantes que definen el modelo
+n_x_circulo = circulo_set_x_flatten.shape[0]
+n_x_cuadrado = cuadrado_set_x_flatten.shape[0]
+n_x_test = test_set_x_flatten.shape[0]
+n_y = 1 
 print(f"""Dimensiones originales para el circulo:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
 Test: {X_test.shape}, {y_test.shape}""")
-print(f"""Dimensiones originales para el cuadrado:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
+print(f"""Dimensiones originales para el cuadrado:\n{20 * '-'}\nData de prueba: {X_circulo.shape}, {y_circulo.shape}
 Test: {X_test.shape}, {y_test.shape}""")
+print ("circulo_set_x_flatten shape: " + str(circulo_set_x_flatten.shape))
+print ("cuadrado_set_x_flatten shape: " + str(cuadrado_set_x_flatten.shape))
+print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 
-
+#debido a que se necesita RBG cada pixel es un vector de numeros de 0 a 255.
 X_cuadrado = X_cuadrado / 255
 X_circulo = X_circulo / 255
 X_test = X_test / 255
