@@ -28,10 +28,16 @@ cuadrado_set_x_flatten = X_cuadrado.reshape(X_cuadrado.shape[0], -1).T
 test_set_x_flatten = X_test.reshape(X_test.shape[0], -1).T
 #se tienen 5 capas, input, output y 3 capas escondidas
 #constantes que definen el modelo
+#se define la estructura de la red neuronal
 n_x_circulo = circulo_set_x_flatten.shape[0]
 n_x_cuadrado = cuadrado_set_x_flatten.shape[0]
 n_x_test = test_set_x_flatten.shape[0]
 n_y = 1 
+nn_layers_circulo = [n_x_circulo, 20, 7, 5, n_y]
+print (nn_layers_circulo)
+nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
+print (nn_layers_cuadrado)
+
 print(f"""Dimensiones originales para el circulo:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para el cuadrado:\n{20 * '-'}\nData de prueba: {X_circulo.shape}, {y_circulo.shape}
