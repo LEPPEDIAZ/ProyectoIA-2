@@ -135,6 +135,18 @@ def obtener_costo(AL, y):
         np.multiply(y, np.log(AL)) + np.multiply(1 - y, np.log(1 - AL)))
 
     return costo
+def calcular_costo(Yhat, Y):
+    
+    m = Y.shape[1]
+ 
+    logprobs = np.dot(Y, np.log(Yhat).T) + np.dot((1-Y), np.log(1-Yhat).T)
+ 
+    costo = (-1./m) * logprobs 
+ 
+    costo = np.squeeze(costo)      
+    assert(costo.shape == ())
+ 
+    return costo
 
 def gradiente_de_sigmoid(thetaA, Z):
     A, Z = sigmoid(Z)
