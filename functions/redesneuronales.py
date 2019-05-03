@@ -136,13 +136,9 @@ def obtener_costo(AL, y):
 
     return costo
 def calcular_costo(Yhat, Y):
-    
     m = Y.shape[1]
- 
     logprobs = np.dot(Y, np.log(Yhat).T) + np.dot((1-Y), np.log(1-Yhat).T)
- 
     costo = (-1./m) * logprobs 
- 
     costo = np.squeeze(costo)      
     assert(costo.shape == ())
  
@@ -180,6 +176,19 @@ def linear_activation_forward(A_prev, W, b, activation):
     cache = (linear_cache, activation_cache)
  
     return A, cache
+def linear_backward(dZ, cache):
+    A_prev, W, b = cache
+    m = A_prev.shape[1]
+ 
+    dW = (1./m) * np.dot(dZ, A_prev.T)
+    db = (1./m) * np.sum(dZ, axis=1, keepdims=True)
+    dA_prev = np.dot(W.T, dZ)
+ 
+    assert (dA_prev.shape == A_prev.shape)
+    assert (dW.shape == W.shape)
+    assert (db.shape == b.shape)
+ 
+    return dA_prev, dW, db
 def backpropagation(dZ, cache):
     
     anterior, W, b = cache
