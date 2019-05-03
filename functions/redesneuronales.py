@@ -109,7 +109,26 @@ def feed_foward_model(X, parametros, theta="relu"):
     assert AL.shape == (1, X.shape[1])
 
     return AL, caches
+def L_model_forward(X, parametros):
+    caches = []
+    A = X
+    L = len(parametros) // 2                  
 
+    for l in range(1, L):
+        A_prev = A
+        w_l = parametros['W' + str(l)]
+        b_l = parametros['b' + str(l)]
+        A, cache = linear_activation_forward(A_prev, w_l, b_l, activation = "relu2")
+        caches.append(cache)
+ 
+    w_L = parametros['W' + str(L)]
+    b_L = parametros['b' + str(L)]
+    Yhat, cache = linear_activation_forward(A, w_L, b_L, activation = "sigmoid2")
+    caches.append(cache)
+ 
+    assert(Yhat.shape == (1,X.shape[1]))
+ 
+    return Yhat, caches
 def obtener_costo(AL, y):
     m = y.shape[1]              
     costo = - (1 / m) * np.sum(
@@ -135,7 +154,20 @@ def gradiente_relu(thetaA, Z):
     dZ = np.multiply(thetaA, np.int64(A > 0))
 
     return dZ
-
+def linear_activation_forward(A_prev, W, b, activation):
+    
+    Z, linear_cache = linear_forward(A_prev, W, b)
+ 
+    if activation == "sigmoid2":
+        A, activation_cache = sigmoid2(Z)
+ 
+    elif activation == "relu2":
+        A, activation_cache = relu2(Z)
+ 
+    assert (A.shape == (W.shape[0], A_prev.shape[1]))
+    cache = (linear_cache, activation_cache)
+ 
+    return A, cache
 def backpropagation(dZ, cache):
     
     anterior, W, b = cache

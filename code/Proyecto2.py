@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 sys.path.append("../functions/")
 from load_dataset import load_dataset
-from redesneuronales import (initeparametros,initeparametros2,linear_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2)
+from redesneuronales import (initeparametros,L_model_forward,initeparametros2,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2)
 
 
 # se importa el data
