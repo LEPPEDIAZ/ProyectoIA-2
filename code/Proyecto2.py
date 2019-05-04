@@ -5,7 +5,10 @@ import numpy as np
 sys.path.append("../functions/")
 from load_dataset import load_dataset
 from redesneuronales import (initeparametros,sigmoid_backward,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2)
-
+import scipy
+from PIL import Image
+from scipy import ndimage
+import skimage
 
 # se importa el data
 X_circulo, y_circulo = load_dataset("../data2")
@@ -34,6 +37,8 @@ n_x_cuadrado = cuadrado_set_x_flatten.shape[0]
 n_x_test = test_set_x_flatten.shape[0]
 n_y = 1 
 nn_layers_circulo = [n_x_circulo, 20, 7, 5, n_y]
+
+print("Capas del circulo y cuadrados")
 print (nn_layers_circulo)
 nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
 print (nn_layers_cuadrado)
@@ -50,7 +55,13 @@ print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 X_cuadrado = X_cuadrado / 255
 X_circulo = X_circulo / 255
 X_test = X_test / 255
-
+test_dataset=X_circulo, y_circulo
+classes = np.array(test_dataset)
+index = 25
+example = X_circulo[index]
+circulo = "circulo"
+print ("y = " + str(y_circulo[:, index]) + ", es una foto de un " + circulo)
+#print ("y = " + str(y_circulo[:, index]) + ",es una foto de un  '" + classes[np.squeeze(y_circulo[:, index])].decode("utf-8") )
 def inicializar_parametros_2(dimensiones, initialization_method="he"):
     np.random.seed(1)               
     parametros = {}                 

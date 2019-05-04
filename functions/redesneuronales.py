@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def initeparametros(dimensiones):
     np.random.seed(1)               
     parametros = {}

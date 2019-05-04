@@ -11,7 +11,7 @@ def load_dataset(path, images_extension='jpg'):
     count = 0
 
     for img in images:
-        x = plt.imread(img).astype('float')
+        x = plt.imread(img).astype('int')
         if count == 0:
             X = x
 
