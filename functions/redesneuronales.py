@@ -44,6 +44,28 @@ def sigmoid_backward(dA, cache):
     dZ = dA * s * (1-s)
     assert (dZ.shape == Z.shape)
     return dZ
+def propagate(w, b, X, Y):
+    
+    m = X.shape[1]
+    #foward
+    A = sigmoid(np.dot(w.T, X) + b)             
+    cost = (-1 / m) * np.sum((Y*np.log(A) + np.diff(Y,1)*np.log(np.diff(A,1))), axis=1)
+    
+    #backward 
+    X = np.transpose(X) 
+    Y = np.transpose(Y)  
+    dw = (1/m)*np.dot(X,((A-Y).T))
+    db = (1/m)*np.sum(A-Y, axis=1)
+    print(dw.shape)
+    #assert(dw.shape == w.shape)
+    #assert(db.dtype == float)
+    cost = np.squeeze(cost)
+    #assert(cost.shape == ())
+    
+    grads = {"dw": dw,
+             "db": db}
+    
+    return grads, cost
 
 def tanh(Z):
     A = np.tanh(Z)
