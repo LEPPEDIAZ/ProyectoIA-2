@@ -19,7 +19,7 @@ index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
 #circulo_set_y = y_circulo.reshape((1, y_circulo.shape[0]))
 
 #se importa data del circulo
-X_test, y_test = load_dataset("../dibujo")
+X_test, y_test = load_dataset("dibujo/")
 index_dibujo = np.argmax(y_test); index_circulo = np.argmin(y_test)
 
 #se importa cuadrado
@@ -35,6 +35,7 @@ test_set_x_flatten = X_test.reshape(X_test.shape[0], -1).T
 n_x_circulo = circulo_set_x_flatten.shape[0]
 n_x_cuadrado = cuadrado_set_x_flatten.shape[0]
 n_x_test = test_set_x_flatten.shape[0]
+num_px=150
 n_y = 1 
 nn_layers_circulo = [n_x_circulo, 20, 7, 5, n_y]
 
@@ -192,6 +193,14 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     
     return d
 d = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = True)
+print("-------------------------------------------------------------------")
+my_image = "test.dibujo.jpg"  
+fname = "dibujo/" + my_image
+image = np.array(plt.imread(fname))
+my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
+my_predicted_image = predict3(d["w"], d["b"], my_image)
+
+#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
 print("se calcula el circulo")
 
