@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 sys.path.append("../functions/")
 from load_dataset import load_dataset
-from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2)
+from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
 import scipy
 from PIL import Image
 from scipy import ndimage
@@ -121,7 +121,8 @@ print ("w = " + str(params["w"]))
 print ("b = " + str(params["b"]))
 print ("dw = " + str(grads["dw"]))
 print ("db = " + str(grads["db"]))
-
+print("-----------------------------------")
+print ("predictions = " + str(predict3(w, b, X)))
 def gradiente_aprendisaje(
         X, y, dimensiones, curvaaprendisaje=0.01, num_iterations=500,
         print_costo=True, theta="relu", initialization_method="he" ):

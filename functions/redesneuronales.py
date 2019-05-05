@@ -38,6 +38,9 @@ def sigmoid2(Z):
     A = 1 / (1 + np.exp(-Z))
     cache = Z
     return A, cache
+def sigmoid3(Z):
+    s = 1. / ( 1 + np.exp(-Z))
+    return s
 def sigmoid_backward(dA, cache):
     Z = cache
     s = 1/(1+np.exp(-Z))
@@ -312,6 +315,27 @@ def predict2( X, y, parametros):
     print("predict2: "  + str(np.sum((p == y)/m)))
  
     return p
+def predict3(w, b, X):
+    m = X.shape[1]
+    Y_prediction = np.zeros((1,m))
+    w = w.reshape(X.shape[0], 1)
+  
+    A = sigmoid3(np.dot(w.T, X) + b)
+ 
+    
+    [print(x) for x in A]
+    for i in range(A.shape[1]):
+        
+        if A[0, i] >= 0.5:
+            Y_prediction[0, i] = 1
+            
+        else:
+            Y_prediction[0, i] = 0
+     
+    assert(Y_prediction.shape == (1, m))
+    
+    return Y_prediction
+
 def optimizar(w, b, X, Y, num_iterations, learning_rate, print_costo = False):
     costos = []
     
