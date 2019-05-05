@@ -11,7 +11,7 @@ from scipy import ndimage
 import skimage
 
 # se importa el data
-X_circulo, y_circulo = load_dataset("../data2")
+X_circulo, y_circulo = load_dataset("data2/")
 index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
 #loading data
 #circulo_X_orig=np.array(X_circulo["circulo_X_orig"][:])
@@ -23,7 +23,7 @@ X_test, y_test = load_dataset("dibujo/")
 index_dibujo = np.argmax(y_test); index_circulo = np.argmin(y_test)
 
 #se importa cuadrado
-X_cuadrado, y_cuadrado = load_dataset("../data")
+X_cuadrado, y_cuadrado = load_dataset("data/")
 index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
 #resshape origin and examples
 circulo_set_x_flatten = X_circulo.reshape(X_circulo.shape[0], -1).T
