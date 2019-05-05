@@ -167,6 +167,32 @@ def accuracy(X, parametros, y,activacion="relu"):
     accuracy = np.mean(labels == y) * 100
 
     return print (f"El accuracy es: {accuracy:.2f}%.")
+def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate = 0.5, print_cost = False):
+    w, b = inicializarconcero(X_train.shape[0])
+    parameters, grads, costs = optimizar(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
+   
+    w = parameters["w"]
+    b = parameters["b"]
+    
+
+    Y_prediction_test = predict3(w, b, X_test)
+    Y_prediction_train = predict3(w, b, X_train)
+
+    print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
+    print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - Y_test)) * 100))
+
+    
+    d = {"costs": costs,
+         "Y_prediction_test": Y_prediction_test, 
+         "Y_prediction_train" : Y_prediction_train, 
+         "w" : w, 
+         "b" : b,
+         "learning_rate" : learning_rate,
+         "num_iterations": num_iterations}
+    
+    return d
+d = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = True)
+print("-------------------------------------------------------------------")
 print("se calcula el circulo")
 
 dimensiones = [X_circulo.shape[0], 5, 5, 1]
@@ -187,7 +213,7 @@ accuracy(X_circulo, parametros_tanh,y_circulo, "tanh")
 accuracy(X_test, parametros_tanh,y_test, "tanh")
 pred_train = predict(X_test, y_test, parametros_tanh)
 pred_train = predict2(X_test, y_test, parametros_relu)
-
+print("-------------------------------------------------------------------")
 print("se calcula el cuadrado")
 
 dimensiones = [X_cuadrado.shape[0], 5, 5, 1]

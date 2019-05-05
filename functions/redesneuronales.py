@@ -352,7 +352,7 @@ def optimizar(w, b, X, Y, num_iterations, learning_rate, print_costo = False):
     
     for i in range(num_iterations):
     
-        grads, costo = propagate(w=w, b=b, X=X, Y=Y)
+        grads, costo = propagate2(w=w, b=b, X=X, Y=Y)
   
         dw = grads["dw"]
         db = grads["db"]
