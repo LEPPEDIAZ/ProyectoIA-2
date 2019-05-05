@@ -50,7 +50,7 @@ def propagate(w, b, X, Y):
     #foward
     A = sigmoid(np.dot(w.T, X) + b)             
     cost = (-1 / m) * np.sum((Y*np.log(A) + np.diff(Y,1)*np.log(np.diff(A,1))), axis=1)
-    
+
     #backward 
     X = np.transpose(X) 
     Y = np.transpose(Y)  
@@ -312,3 +312,29 @@ def predict2( X, y, parametros):
     print("predict2: "  + str(np.sum((p == y)/m)))
  
     return p
+def optimizar(w, b, X, Y, num_iterations, learning_rate, print_costo = False):
+    costos = []
+    
+    for i in range(num_iterations):
+    
+        grads, costo = propagate(w=w, b=b, X=X, Y=Y)
+  
+        dw = grads["dw"]
+        db = grads["db"]
+
+        w = w - learning_rate*dw
+        b = b -  learning_rate*db
+  
+        if i % 100 == 0:
+            costos.append(costo)
+   
+        if print_costo and i % 100 == 0:
+            print ("Costo despues de cada iteracion %i: %f" %(i, costo))
+    
+    parametros = {"w": w,
+              "b": b}
+    
+    grads = {"dw": dw,
+             "db": db}
+    
+    return parametros, grads, costos
