@@ -55,6 +55,12 @@ print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 X_cuadrado = X_cuadrado / 255
 X_circulo = X_circulo / 255
 X_test = X_test / 255
+len_cuadrado=len(X_cuadrado)
+len_circulo=len(X_circulo)
+len_test=len(X_test)
+print(len_cuadrado)
+print(len_circulo)
+print(len_test)
 test_dataset=X_circulo, y_circulo
 classes = np.array(test_dataset)
 index = 25
@@ -62,6 +68,7 @@ example = X_circulo[index]
 circulo = "circulo"
 print ("y = " + str(y_circulo[:, index]) + ", es una foto de un " + circulo)
 #print ("y = " + str(y_circulo[:, index]) + ",es una foto de un  '" + classes[np.squeeze(y_circulo[:, index])].decode("utf-8") )
+
 def inicializar_parametros_2(dimensiones, initialization_method="he"):
     np.random.seed(1)               
     parametros = {}                 
@@ -93,7 +100,16 @@ def inicializar_parametros_cero(dimensiones):
         parametros["b" + str(l)] = np.zeros((dimensiones[l], 1))
 
     return parametros
-
+def inicializarconcero(dimensiones):
+    w = np.zeros(shape=(dimensiones, 1), dtype=np.float32)
+    b = 0
+    assert(w.shape == (dimensiones, 1))
+    assert(isinstance(b, float) or isinstance(b, int))
+    return w, b
+dim = 2
+w, b = inicializarconcero(dim)
+print ("w = " + str(w))
+print ("b = " + str(b))
 
 def gradiente_aprendisaje(
         X, y, dimensiones, curvaaprendisaje=0.01, num_iterations=500,
