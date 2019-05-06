@@ -179,8 +179,8 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     Y_prediction_test = predict3(w, b, X_test)
     Y_prediction_train = predict3(w, b, X_train)
 
-    print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
-    print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - Y_test)) * 100))
+    print("data accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
+
 
     
     d = {"costs": costs,
@@ -194,12 +194,19 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     return d
 d = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = True)
 print("-------------------------------------------------------------------")
+print("Circulo Reading...")
 my_image = "test.dibujo.jpg"  
 fname = "dibujo/" + my_image
 image = np.array(plt.imread(fname))
 my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
 my_predicted_image = predict3(d["w"], d["b"], my_image)
-
+#my_predicted_image = predict3(d["w"], d["b"], image)
+#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
+print("-------------------------------------------------------------------")
+cuadradoread = model(X_cuadrado,y_cuadrado, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = True)
+print("Cuadrado Reading...")
+my_predicted_image = predict3(cuadradoread["w"], cuadradoread["b"], my_image)
+#my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
 print("se calcula el circulo")
