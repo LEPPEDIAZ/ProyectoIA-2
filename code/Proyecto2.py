@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 sys.path.append("../functions/")
 from load_dataset import load_dataset
+from load_dataset1 import load_dataset1
 from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
 import scipy
 from PIL import Image
@@ -20,10 +21,10 @@ index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
 
 #se importa data del circulo
 X_test, y_test = load_dataset("dibujo/")
-index_dibujo = np.argmax(y_test); index_circulo = np.argmin(y_test)
+index_dibujo = np.argmax(y_test); index_dibujo = np.argmin(y_test)
 
 #se importa cuadrado
-X_cuadrado, y_cuadrado = load_dataset("data/")
+X_cuadrado, y_cuadrado = load_dataset1("data2/")
 index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
 #resshape origin and examples
 circulo_set_x_flatten = X_circulo.reshape(X_circulo.shape[0], -1).T
@@ -38,7 +39,7 @@ n_x_test = test_set_x_flatten.shape[0]
 num_px=150
 n_y = 1 
 nn_layers_circulo = [n_x_circulo, 20, 7, 5, n_y]
-
+nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
 print("Capas del circulo y cuadrados")
 print (nn_layers_circulo)
 nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
@@ -192,18 +193,18 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
          "num_iterations": num_iterations}
     
     return d
-d = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = True)
+circuloread = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 print("-------------------------------------------------------------------")
 print("Circulo Reading...")
 my_image = "test.dibujo.jpg"  
 fname = "dibujo/" + my_image
 image = np.array(plt.imread(fname))
 my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
-my_predicted_image = predict3(d["w"], d["b"], my_image)
+my_predicted_image = predict3(circuloread["w"], circuloread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
-cuadradoread = model(X_cuadrado,y_cuadrado, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = True)
+cuadradoread = model(X_cuadrado,y_cuadrado, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 print("Cuadrado Reading...")
 my_predicted_image = predict3(cuadradoread["w"], cuadradoread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
