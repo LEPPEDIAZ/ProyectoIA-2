@@ -180,10 +180,6 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     Y_prediction_test = predict3(w, b, X_test)
     Y_prediction_train = predict3(w, b, X_train)
 
-    print("data accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
-
-
-    
     d = {"costs": costs,
          "Y_prediction_test": Y_prediction_test, 
          "Y_prediction_train" : Y_prediction_train, 
@@ -194,19 +190,10 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     
     return d
 circuloread = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
-print("-------------------------------------------------------------------")
-print("Circulo Reading...")
-my_image = "test.dibujo.jpg"  
-fname = "dibujo/" + my_image
-image = np.array(plt.imread(fname))
-my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
-my_predicted_image = predict3(circuloread["w"], circuloread["b"], my_image)
-#my_predicted_image = predict3(d["w"], d["b"], image)
-#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
+
 print("-------------------------------------------------------------------")
 cuadradoread = model(X_cuadrado,y_cuadrado, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
-print("Cuadrado Reading...")
-my_predicted_image = predict3(cuadradoread["w"], cuadradoread["b"], my_image)
+
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -214,39 +201,59 @@ print("se calcula el circulo")
 
 dimensiones = [X_circulo.shape[0], 5, 5, 1]
 
-parametros_relu = gradiente_aprendisaje(
-    X_circulo, y_circulo, dimensiones, curvaaprendisaje=0.03, num_iterations=500,
-    theta="relu")
-
-accuracy(X_circulo, parametros_relu, y_circulo, activacion="relu")
-accuracy(X_test, parametros_relu, y_test, activacion="relu")
-pred_train = predict(X_test, y_test, parametros_relu)
-pred_train = predict2(X_test, y_test, parametros_relu)
-
-parametros_tanh = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
+parametros_tanh1 = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
                    initialization_method="he")
+print("-------------------------------------------------------------------")
+print("Circulo Reading...")
+my_image = "test.dibujo.jpg"  
+fname = "dibujo/" + my_image
+image = np.array(plt.imread(fname))
+my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
+my_predicted_circle = predict3(circuloread["w"], circuloread["b"], my_image)
+#my_predicted_image = predict3(d["w"], d["b"], image)
+#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
+print("-------------------------------------------------------------------")
 
-accuracy(X_circulo, parametros_tanh,y_circulo, "tanh")
-accuracy(X_test, parametros_tanh,y_test, "tanh")
-pred_train = predict(X_test, y_test, parametros_tanh)
-pred_train = predict2(X_test, y_test, parametros_relu)
 print("-------------------------------------------------------------------")
 print("se calcula el cuadrado")
 
+
+
 dimensiones = [X_cuadrado.shape[0], 5, 5, 1]
 
-parametros_relu = gradiente_aprendisaje(
-    X_cuadrado, y_cuadrado, dimensiones, curvaaprendisaje=0.03, num_iterations=500,
-    theta="relu")
-
-accuracy(X_cuadrado, parametros_relu, y_cuadrado, activacion="relu")
-accuracy(X_test, parametros_relu, y_test, activacion="relu")
-pred_train = predict(X_test, y_test, parametros_relu)
-pred_train = predict2(X_test, y_test, parametros_relu)
-parametros_tanh = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
+parametros_tanh2 = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
                    initialization_method="he")
 
-accuracy(X_cuadrado, parametros_tanh, y_cuadrado, "tanh")
-accuracy(X_test, parametros_tanh,y_test, "tanh")
-pred_train = predict(X_test, y_test, parametros_tanh)
-pred_train = predict2(X_test, y_test, parametros_tanh)
+print("Cuadrado Reading...")
+my_predicted_square = predict3(cuadradoread["w"], cuadradoread["b"], my_image)
+print("-------------------------------------------------------------------")
+if ( my_predicted_circle > 0.000001 ):
+    #0.0000041409869
+   print ("Es un circulo")
+   circulo_data=accuracy(X_circulo, parametros_tanh1,y_circulo, "tanh")
+   test_data=accuracy(X_test, parametros_tanh1,y_test, "tanh")
+
+else:
+   print ("no es un circulo")
+
+if ( my_predicted_square > 0.999999):
+    #0.99999586
+    #0.9999781
+    #0.99999172
+   print ("Es un cuadrado")
+   cuadrado_data=accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh")
+   test_data2=accuracy(X_test, parametros_tanh2,y_test, "tanh")
+ 
+else:
+   print ("No es un cuadrado")
+
+if (0.99999172 > 0.999999):
+    #0.99999586
+    #0.9999781
+    #0.99999172
+   print ("true")
+else:
+   print ("false")
+
+
+print("-------------------------------------------------------------------")
