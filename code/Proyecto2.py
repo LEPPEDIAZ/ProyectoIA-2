@@ -1,6 +1,5 @@
-import os as os
 import sys
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 import numpy as np
 sys.path.append("../functions/")
 from load_dataset import load_dataset
@@ -10,6 +9,8 @@ import scipy
 from PIL import Image
 from scipy import ndimage
 import skimage
+import tkinter 
+from tkinter import *
 
 # se importa el data
 X_circulo, y_circulo = load_dataset("data2/")
@@ -227,6 +228,7 @@ parametros_tanh2 = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, th
 print("Cuadrado Reading...")
 my_predicted_square = predict3(cuadradoread["w"], cuadradoread["b"], my_image)
 print("-------------------------------------------------------------------")
+
 if ( my_predicted_circle > 0.000001 ):
     #0.0000041409869
    print ("Es un circulo")
@@ -240,7 +242,16 @@ if ( my_predicted_square > 0.999999):
     #0.99999586
     #0.9999781
     #0.99999172
-   print ("Es un cuadrado")
+   top=Tk()
+   top.geometry("180x180")
+   top.configure(background='blue')
+   Lb1 = Listbox(top)
+   Lb1.insert(1, "El programa es:")
+   Lb1.insert(2, "Un circulo")
+   Lb1.insert(3, (print(accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh"))))
+   Lb1.insert(4,  (accuracy(X_test, parametros_tanh2,y_test, "tanh")))
+   Lb1.pack()
+   top.mainloop()
    cuadrado_data=accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh")
    test_data2=accuracy(X_test, parametros_tanh2,y_test, "tanh")
  
