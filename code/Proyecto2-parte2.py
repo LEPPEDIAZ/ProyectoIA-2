@@ -14,78 +14,74 @@ import skimage
 import tkinter 
 from tkinter import *
 
-# se importa el data
-X_circulo, y_circulo = load_dataset3("data3/")
-index_dibujo = np.argmax(y_circulo); index_circulo = np.argmin(y_circulo)
-#loading data
-#circulo_X_orig=np.array(X_circulo["circulo_X_orig"][:])
-#circulo_y_orig=np.array(y_circulo["circulo_y_orig"][:])
-#circulo_set_y = y_circulo.reshape((1, y_circulo.shape[0]))
+# se importa el data del arbol
+X_arbol, y_arbol = load_dataset3("data3/")
+index_dibujo = np.argmax(y_arbol); index_arbol = np.argmin(y_arbol)
 
-#se importa data del circulo
+#se importa data del dibujo
 X_test, y_test = load_dataset("dibujo/")
 index_dibujo = np.argmax(y_test); index_dibujo = np.argmin(y_test)
 
-#se importa cuadrado
-X_cuadrado, y_cuadrado = load_dataset4("data3/")
-index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
+#se importa huevo
+X_huevo, y_huevo = load_dataset4("data3/")
+index_dibujo = np.argmax(y_huevo); index_huevo = np.argmin(y_huevo)
 
-#se importa el triangulo
-X_triangulo, y_triangulo = load_dataset5("data3/")
-index_dibujo = np.argmax(y_cuadrado); index_triangulo = np.argmin(y_cuadrado)
+#se importa el interrogacion
+X_interrogacion, y_interrogacion = load_dataset5("data3/")
+index_dibujo = np.argmax(y_huevo); index_interrogacion = np.argmin(y_huevo)
 #resshape origin and examples
-circulo_set_x_flatten = X_circulo.reshape(X_circulo.shape[0], -1).T
-cuadrado_set_x_flatten = X_cuadrado.reshape(X_cuadrado.shape[0], -1).T
-triangulo_set_x_flatten = X_triangulo.reshape(X_triangulo.shape[0], -1).T
+arbol_set_x_flatten = X_arbol.reshape(X_arbol.shape[0], -1).T
+huevo_set_x_flatten = X_huevo.reshape(X_huevo.shape[0], -1).T
+interrogacion_set_x_flatten = X_interrogacion.reshape(X_interrogacion.shape[0], -1).T
 test_set_x_flatten = X_test.reshape(X_test.shape[0], -1).T
 #se tienen 5 capas, input, output y 3 capas escondidas
 #constantes que definen el modelo
 #se define la estructura de la red neuronal
-n_x_circulo = circulo_set_x_flatten.shape[0]
-n_x_cuadrado = cuadrado_set_x_flatten.shape[0]
-n_x_triangulo = triangulo_set_x_flatten.shape[0]
+n_x_arbol = arbol_set_x_flatten.shape[0]
+n_x_huevo = huevo_set_x_flatten.shape[0]
+n_x_interrogacion = interrogacion_set_x_flatten.shape[0]
 n_x_test = test_set_x_flatten.shape[0]
 num_px=150
 n_y = 1 
-nn_layers_circulo = [n_x_circulo, 20, 7, 5, n_y]
-nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
-nn_layers_triangulo = [n_x_triangulo, 20, 7, 5, n_y]
-print("Capas del circulo y cuadrados")
-print (nn_layers_circulo)
-nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
-print (nn_layers_cuadrado)
-print (nn_layers_triangulo)
-print(f"""Dimensiones originales para el circulo:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
+nn_layers_arbol = [n_x_arbol, 20, 7, 5, n_y]
+nn_layers_huevo = [n_x_huevo, 20, 7, 5, n_y]
+nn_layers_interrogacion = [n_x_interrogacion, 20, 7, 5, n_y]
+print("Capas del arbol y huevo")
+print (nn_layers_arbol)
+nn_layers_huevo = [n_x_huevo, 20, 7, 5, n_y]
+print (nn_layers_huevo)
+print (nn_layers_interrogacion)
+print(f"""Dimensiones originales para el huevo:\n{20 * '-'}\nData de prueba: {X_huevo.shape}, {y_huevo.shape}
 Test: {X_test.shape}, {y_test.shape}""")
-print(f"""Dimensiones originales para el cuadrado:\n{20 * '-'}\nData de prueba: {X_circulo.shape}, {y_circulo.shape}
+print(f"""Dimensiones originales para el arbol:\n{20 * '-'}\nData de prueba: {X_arbol.shape}, {y_arbol.shape}
 Test: {X_test.shape}, {y_test.shape}""")
-print(f"""Dimensiones originales para el triangulo:\n{20 * '-'}\nData de prueba: {X_triangulo.shape}, {y_triangulo.shape}
+print(f"""Dimensiones originales para el interrogacion:\n{20 * '-'}\nData de prueba: {X_interrogacion.shape}, {y_interrogacion.shape}
 Test: {X_test.shape}, {y_test.shape}""")
-print ("circulo_set_x_flatten shape: " + str(circulo_set_x_flatten.shape))
-print ("cuadrado_set_x_flatten shape: " + str(cuadrado_set_x_flatten.shape))
-print ("triangulo_set_x_flatten shape: " + str(triangulo_set_x_flatten.shape))
+print ("arbol_set_x_flatten shape: " + str(arbol_set_x_flatten.shape))
+print ("huevo_set_x_flatten shape: " + str(huevo_set_x_flatten.shape))
+print ("interrogacion_set_x_flatten shape: " + str(interrogacion_set_x_flatten.shape))
 print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 
 #debido a que se necesita RBG cada pixel es un vector de numeros de 0 a 255.
-X_cuadrado = X_cuadrado / 255
-X_circulo = X_circulo / 255
-X_triangulo = X_triangulo / 255
+X_huevo = X_huevo / 255
+X_arbol = X_arbol / 255
+X_interrogacion = X_interrogacion / 255
 X_test = X_test / 255
-len_cuadrado=len(X_cuadrado)
-len_circulo=len(X_circulo)
+len_huevo=len(X_huevo)
+len_arbol=len(X_arbol)
 len_test=len(X_test)
-len_triangulo=len(X_triangulo)
-print(len_cuadrado)
-print(len_circulo)
+len_interrogacion=len(X_interrogacion)
+print(len_huevo)
+print(len_arbol)
 print(len_test)
-print(len_triangulo)
-test_dataset=X_circulo, y_circulo
+print(len_interrogacion)
+test_dataset=X_arbol, y_arbol
 classes = np.array(test_dataset)
 index = 25
-example = X_circulo[index]
-circulo = "circulo"
-print ("y = " + str(y_circulo[:, index]) + ", es una foto de un " + circulo)
-#print ("y = " + str(y_circulo[:, index]) + ",es una foto de un  '" + classes[np.squeeze(y_circulo[:, index])].decode("utf-8") )
+example = X_arbol[index]
+arbol = "arbol"
+print ("y = " + str(y_arbol[:, index]) + ", es una foto de un " + arbol)
+
 
 def inicializar_parametros_2(dimensiones, initialization_method="he"):
     np.random.seed(1)               
@@ -205,55 +201,55 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
          "num_iterations": num_iterations}
     
     return d
-circuloread = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+arbolread = model(X_arbol, y_arbol, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 
 print("-------------------------------------------------------------------")
-cuadradoread = model(X_cuadrado,y_cuadrado, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+huevoread = model(X_huevo,y_huevo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 print("-------------------------------------------------------------------")
-trianguloread = model(X_triangulo,y_triangulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+interrogacionread = model(X_interrogacion,y_interrogacion, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
-print("se calcula el circulo")
+print("se calcula el arbol")
 
-dimensiones = [X_circulo.shape[0], 5, 5, 1]
+dimensiones = [X_arbol.shape[0], 5, 5, 1]
 
-parametros_tanh1 = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
+parametros_tanh1 = gradiente_aprendisaje(X_arbol, y_arbol, dimensiones, theta="tanh",
                    initialization_method="he")
 print("-------------------------------------------------------------------")
-print("Circulo Reading...")
+print("Arbol Reading...")
 my_image = "test.dibujo.jpg"  
 fname = "dibujo/" + my_image
 image = np.array(plt.imread(fname))
 my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
-my_predicted_circle = predict3(circuloread["w"], circuloread["b"], my_image)
+my_predicted_circle = predict3(arbolread["w"], arbolread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
 
 print("-------------------------------------------------------------------")
-print("se calcula el cuadrado")
+print("se calcula el huevo")
 
 
 
-dimensiones = [X_cuadrado.shape[0], 5, 5, 1]
+dimensiones = [X_huevo.shape[0], 5, 5, 1]
 
-parametros_tanh2 = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
+parametros_tanh2 = gradiente_aprendisaje(X_huevo, y_huevo, dimensiones, theta="tanh",
                    initialization_method="he")
 
-print("Cuadrado Reading...")
-my_predicted_square = predict3(cuadradoread["w"], cuadradoread["b"], my_image)
+print("Huevo Reading...")
+my_predicted_square = predict3(huevoread["w"], huevoread["b"], my_image)
 print("-------------------------------------------------------------------")
-print("se calcula el triangulo")
+print("se calcula el interrogacion")
 
-dimensiones = [X_triangulo.shape[0], 5, 5, 1]
+dimensiones = [X_interrogacion.shape[0], 5, 5, 1]
 
-parametros_tanh1 = gradiente_aprendisaje(X_triangulo, y_triangulo, dimensiones, theta="tanh",
+parametros_tanh1 = gradiente_aprendisaje(X_interrogacion, y_interrogacion, dimensiones, theta="tanh",
                    initialization_method="he")
 print("-------------------------------------------------------------------")
-print("Triangulo Reading...")
-my_predicted_circle = predict3(trianguloread["w"], trianguloread["b"], my_image)
+print("interrogacion Reading...")
+my_predicted_circle = predict3(interrogacionread["w"], interrogacionread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -261,14 +257,14 @@ print("-------------------------------------------------------------------")
 
 if ( my_predicted_circle > 0.000001 ):
     #0.0000041409869
-   print ("Es un circulo")
-   circulo_data=accuracy(X_circulo, parametros_tanh1,y_circulo, "tanh")
+   print ("Es un arbol")
+   arbol_data=accuracy(X_arbol, parametros_tanh1,y_arbol, "tanh")
    test_data=accuracy(X_test, parametros_tanh1,y_test, "tanh")
 
 else:
-   print ("no es un circulo")
+   print ("no es un arbol")
 
-cuadrado_data=accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh")
+huevo_data=accuracy(X_huevo, parametros_tanh2, y_huevo, "tanh")
 test_data2=accuracy(X_test, parametros_tanh2,y_test, "tanh")
 if ( my_predicted_square > 0.999999):
     #0.99999586
@@ -279,15 +275,15 @@ if ( my_predicted_square > 0.999999):
    top.configure(background='blue')
    Lb1 = Listbox(top)
    Lb1.insert(1, "El programa es:")
-   Lb1.insert(2, "Un circulo")
-   Lb1.insert(3, (print(accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh"))))
+   Lb1.insert(2, "Un arbol")
+   Lb1.insert(3, (print(accuracy(X_huevo, parametros_tanh2, y_huevo, "tanh"))))
    Lb1.insert(4,  (accuracy(X_test, parametros_tanh2,y_test, "tanh")))
    Lb1.pack()
    top.mainloop()
    
  
 else:
-   print ("No es un cuadrado")
+   print ("No es un huevo")
 
 if (0.99999172 > 0.999999):
     #0.99999586
