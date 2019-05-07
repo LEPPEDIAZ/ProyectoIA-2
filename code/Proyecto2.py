@@ -5,6 +5,7 @@ sys.path.append("../functions/")
 from load_dataset import load_dataset
 from load_dataset1 import load_dataset1
 from load_dataset2 import load_dataset2
+from load_dataset3 import load_dataset3
 from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
 import scipy
 from PIL import Image
@@ -32,10 +33,14 @@ index_dibujo = np.argmax(y_cuadrado); index_cuadrado = np.argmin(y_cuadrado)
 #se importa el triangulo
 X_triangulo, y_triangulo = load_dataset2("data2/")
 index_dibujo = np.argmax(y_cuadrado); index_triangulo = np.argmin(y_cuadrado)
+#se importa el arbol
+X_arbol, y_arbol = load_dataset3("data2/")
+index_dibujo = np.argmax(y_arbol); index_arbol = np.argmin(y_arbol)
 #resshape origin and examples
 circulo_set_x_flatten = X_circulo.reshape(X_circulo.shape[0], -1).T
 cuadrado_set_x_flatten = X_cuadrado.reshape(X_cuadrado.shape[0], -1).T
 triangulo_set_x_flatten = X_triangulo.reshape(X_triangulo.shape[0], -1).T
+arbol_set_x_flatten = X_arbol.reshape(X_arbol.shape[0], -1).T
 test_set_x_flatten = X_test.reshape(X_test.shape[0], -1).T
 #se tienen 5 capas, input, output y 3 capas escondidas
 #constantes que definen el modelo
@@ -44,40 +49,48 @@ n_x_circulo = circulo_set_x_flatten.shape[0]
 n_x_cuadrado = cuadrado_set_x_flatten.shape[0]
 n_x_triangulo = triangulo_set_x_flatten.shape[0]
 n_x_test = test_set_x_flatten.shape[0]
+n_x_arbol = arbol_set_x_flatten.shape[0]
 num_px=150
 n_y = 1 
 nn_layers_circulo = [n_x_circulo, 20, 7, 5, n_y]
 nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
 nn_layers_triangulo = [n_x_triangulo, 20, 7, 5, n_y]
+nn_layers_arbol = [n_x_arbol, 20, 7, 5, n_y]
 print("Capas del circulo y cuadrados")
 print (nn_layers_circulo)
 nn_layers_cuadrado = [n_x_cuadrado, 20, 7, 5, n_y]
 print (nn_layers_cuadrado)
 print (nn_layers_triangulo)
+print (nn_layers_arbol)
 print(f"""Dimensiones originales para el circulo:\n{20 * '-'}\nData de prueba: {X_cuadrado.shape}, {y_cuadrado.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para el cuadrado:\n{20 * '-'}\nData de prueba: {X_circulo.shape}, {y_circulo.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para el triangulo:\n{20 * '-'}\nData de prueba: {X_triangulo.shape}, {y_triangulo.shape}
 Test: {X_test.shape}, {y_test.shape}""")
+print(f"""Dimensiones originales para el triangulo:\n{20 * '-'}\nData de prueba: {X_arbol.shape}, {y_arbol.shape}
+Test: {X_test.shape}, {y_test.shape}""")
 print ("circulo_set_x_flatten shape: " + str(circulo_set_x_flatten.shape))
 print ("cuadrado_set_x_flatten shape: " + str(cuadrado_set_x_flatten.shape))
 print ("triangulo_set_x_flatten shape: " + str(triangulo_set_x_flatten.shape))
 print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
-
+print ("arbol_set_x_flatten shape: " + str(arbol_set_x_flatten.shape))
 #debido a que se necesita RBG cada pixel es un vector de numeros de 0 a 255.
 X_cuadrado = X_cuadrado / 255
 X_circulo = X_circulo / 255
 X_triangulo = X_triangulo / 255
 X_test = X_test / 255
+X_arbol = X_arbol / 255
 len_cuadrado=len(X_cuadrado)
 len_circulo=len(X_circulo)
 len_test=len(X_test)
 len_triangulo=len(X_triangulo)
+len_arbol=len(X_arbol)
 print(len_cuadrado)
 print(len_circulo)
 print(len_test)
 print(len_triangulo)
+print(len_arbol)
 test_dataset=X_circulo, y_circulo
 classes = np.array(test_dataset)
 index = 25
@@ -205,12 +218,12 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     
     return d
 circuloread = model(X_circulo, y_circulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
-
 print("-------------------------------------------------------------------")
 cuadradoread = model(X_cuadrado,y_cuadrado, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 print("-------------------------------------------------------------------")
 trianguloread = model(X_triangulo,y_triangulo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
-
+print("-------------------------------------------------------------------")
+arbolread = model(X_arbol,y_arbol, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -248,11 +261,23 @@ print("se calcula el triangulo")
 
 dimensiones = [X_triangulo.shape[0], 5, 5, 1]
 
-parametros_tanh1 = gradiente_aprendisaje(X_triangulo, y_triangulo, dimensiones, theta="tanh",
+parametros_tanh3 = gradiente_aprendisaje(X_triangulo, y_triangulo, dimensiones, theta="tanh",
                    initialization_method="he")
 print("-------------------------------------------------------------------")
 print("Triangulo Reading...")
-my_predicted_circle = predict3(trianguloread["w"], trianguloread["b"], my_image)
+my_predicted_triangulo = predict3(trianguloread["w"], trianguloread["b"], my_image)
+#my_predicted_image = predict3(d["w"], d["b"], image)
+#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
+print("-------------------------------------------------------------------")
+print("se calcula el arbol")
+
+dimensiones = [X_arbol.shape[0], 5, 5, 1]
+
+parametros_tanh4 = gradiente_aprendisaje(X_arbol, y_arbol, dimensiones, theta="tanh",
+                   initialization_method="he")
+print("-------------------------------------------------------------------")
+print("Arbol Reading...")
+my_predicted_arbol = predict3(arbolread["w"], arbolread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
