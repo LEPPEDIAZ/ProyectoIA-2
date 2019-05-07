@@ -8,6 +8,9 @@ from load_dataset2 import load_dataset2
 from load_dataset3 import load_dataset3
 from load_dataset4 import load_dataset4
 from load_dataset5 import load_dataset5
+from load_dataset6 import load_dataset6
+from load_dataset7 import load_dataset7
+from load_dataset8 import load_dataset8
 from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
 import scipy
 from PIL import Image
@@ -44,6 +47,15 @@ index_dibujo = np.argmax(y_huevo); index_huevo = np.argmin(y_huevo)
 #se importa la interrogacion
 X_interrogacion, y_interrogacion = load_dataset5("data2/")
 index_dibujo = np.argmax(y_interrogacion); index_interrogacion = np.argmin(y_interrogacion)
+#se importa la casa
+X_casa, y_casa = load_dataset6("data2/")
+index_dibujo = np.argmax(y_interrogacion); index_casa = np.argmin(y_interrogacion)
+#se importa la feliz
+X_feliz, y_feliz = load_dataset7("data2/")
+index_dibujo = np.argmax(y_interrogacion); index_feliz = np.argmin(y_interrogacion)
+#se importa la triste
+X_triste, y_triste = load_dataset8("data2/")
+index_dibujo = np.argmax(y_interrogacion); index_triste = np.argmin(y_interrogacion)
 #resshape origin and examples
 circulo_set_x_flatten = X_circulo.reshape(X_circulo.shape[0], -1).T
 cuadrado_set_x_flatten = X_cuadrado.reshape(X_cuadrado.shape[0], -1).T
@@ -84,6 +96,12 @@ print(f"""Dimensiones originales para el arbol:\n{20 * '-'}\nData de prueba: {X_
 Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para el huevo:\n{20 * '-'}\nData de prueba: {X_huevo.shape}, {y_huevo.shape}
 Test: {X_test.shape}, {y_test.shape}""")
+print(f"""Dimensiones originales para el signo de interrogacion:\n{20 * '-'}\nData de prueba: {X_casa.shape}, {y_casa.shape}
+Test: {X_test.shape}, {y_test.shape}""")
+print(f"""Dimensiones originales para el signo de interrogacion:\n{20 * '-'}\nData de prueba: {X_feliz.shape}, {y_feliz.shape}
+Test: {X_test.shape}, {y_test.shape}""")
+print(f"""Dimensiones originales para el signo de interrogacion:\n{20 * '-'}\nData de prueba: {X_triste.shape}, {y_triste.shape}
+Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para el signo de interrogacion:\n{20 * '-'}\nData de prueba: {X_interrogacion.shape}, {y_interrogacion.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print ("circulo_set_x_flatten shape: " + str(circulo_set_x_flatten.shape))
@@ -100,6 +118,9 @@ X_test = X_test / 255
 X_arbol = X_arbol / 255
 X_huevo = X_huevo / 255
 X_interrogacion = X_interrogacion / 255
+X_casa = X_casa / 255
+X_feliz = X_feliz / 255
+X_triste = X_triste / 255
 len_cuadrado=len(X_cuadrado)
 len_circulo=len(X_circulo)
 len_test=len(X_test)
@@ -248,6 +269,13 @@ print("-------------------------------------------------------------------")
 huevoread = model(X_huevo,y_huevo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 print("-------------------------------------------------------------------")
 interrogacionread = model(X_interrogacion,y_interrogacion, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+print("-------------------------------------------------------------------")
+casaread = model(X_casa,y_casa, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+print("-------------------------------------------------------------------")
+felizread = model(X_feliz,y_feliz, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+print("-------------------------------------------------------------------")
+tristeread = model(X_triste,y_triste, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+print("-------------------------------------------------------------------")
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -327,6 +355,36 @@ parametros_tanh4 = gradiente_aprendisaje(X_interrogacion, y_interrogacion, dimen
 
 print("Interrogacion Reading...")
 my_predicted_interrogacion = predict3(interrogacionread["w"],interrogacionread["b"], my_image)
+print("-------------------------------------------------------------------")
+print("se calcula casa")
+
+dimensiones = [X_casa.shape[0], 5, 5, 1]
+
+parametros_tanh5 = gradiente_aprendisaje(X_casa, y_casa, dimensiones, theta="tanh",
+                   initialization_method="he")
+
+print("Casa Reading...")
+my_predicted_casa = predict3(casaread["w"],casaread["b"], my_image)
+print("-------------------------------------------------------------------")
+print("se calcula la cara feliz")
+
+dimensiones = [X_feliz.shape[0], 5, 5, 1]
+
+parametros_tanh6 = gradiente_aprendisaje(X_feliz, y_feliz, dimensiones, theta="tanh",
+                   initialization_method="he")
+
+print("Feliz Reading...")
+my_predicted_feliz = predict3(felizread["w"],felizread["b"], my_image)
+print("-------------------------------------------------------------------")
+print("se calcula la cara triste")
+
+dimensiones = [X_triste.shape[0], 5, 5, 1]
+
+parametros_tanh4 = gradiente_aprendisaje(X_triste, y_triste, dimensiones, theta="tanh",
+                   initialization_method="he")
+
+print("Triste Reading...")
+my_predicted_triste = predict3(tristeread["w"],tristeread["b"], my_image)
 print("-------------------------------------------------------------------")
 
 if ( my_predicted_circle > 0.000001 ):
