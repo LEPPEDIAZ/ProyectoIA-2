@@ -274,6 +274,15 @@ if(my_predicted_arbol > my_predicted_huevo) and (my_predicted_arbol > my_predict
     print(arbol_data)
     print(test_data_test_arbol)
     accuracy=arbol_data
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo2.txt", "w")
+    text_file.write(categoria)
+    text_file = open("bestcase/modulo2predicion.txt", "w")
+    text_file.write(str(my_predicted_arbol))
+    text_file = open("bestcase/modulo2accuracy.txt", "w")
+    text_file.write(str(arbol_data))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 elif (my_predicted_huevo > my_predicted_arbol) and (my_predicted_huevo > my_predicted_interrogacion):
     largest=my_predicted_huevo
     categoria="huevo"
@@ -282,6 +291,15 @@ elif (my_predicted_huevo > my_predicted_arbol) and (my_predicted_huevo > my_pred
     print(huevo_data_huevo)
     print(test_data_huevo_test)
     accuracy=huevo_data_huevo
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo2.txt", "w")
+    text_file.write(categoria)
+    text_file = open("bestcase/modulo2predicion.txt", "w")
+    text_file.write(str(my_predicted_huevo))
+    text_file = open("bestcase/modulo2accuracy.txt", "w")
+    text_file.write(str(huevo_data_huevo))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 else:
     largest=my_predicted_interrogacion
     categoria="interrogacion" 
@@ -292,5 +310,14 @@ else:
     print(interrogacion_data_interrogacion)
     print(test_data_triste_test)
     accuracy=interrogacion_data_interrogacion
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo2.txt", "w")
+    text_file.write(categoria)
+    text_file = open("bestcase/modulo2predicion.txt", "w")
+    text_file.write(str(my_predicted_interrogacion))
+    text_file = open("bestcase/modulo2accuracy.txt", "w")
+    text_file.write(str(interrogacion_data_interrogacion))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 
 print("-------------------------------------------------------------------")
