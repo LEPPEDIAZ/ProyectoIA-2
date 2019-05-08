@@ -6,7 +6,7 @@ from load_dataset3 import load_dataset3
 from load_dataset4 import load_dataset4
 from load_dataset5 import load_dataset5
 from load_dataset import load_dataset
-from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
+from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict4)
 import scipy
 from PIL import Image
 from scipy import ndimage
@@ -136,7 +136,7 @@ print ("b = " + str(params["b"]))
 print ("dw = " + str(grads["dw"]))
 print ("db = " + str(grads["db"]))
 print("-----------------------------------")
-print ("predictions = " + str(predict3(w, b, X)))
+print ("predictions = " + str(predict4(w, b, X)))
 def gradiente_aprendisaje(
         X, y, dimensiones, curvaaprendisaje=0.01, num_iterations=200,
         print_costo=True, theta="relu", initialization_method="he" ):
@@ -180,7 +180,7 @@ def accuracy(X, parametros, y,activacion="relu"):
     labels = (probs >= 0.5) * 1
     accuracy = np.mean(labels == y) * 100
 
-    return print (f"El accuracy es: {accuracy:.2f}%.")
+    return accuracy
 def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate = 0.5, print_cost = False):
     w, b = inicializarconcero(X_train.shape[0])
     parameters, grads, costs = optimizar(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
@@ -189,8 +189,8 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     b = parameters["b"]
     
 
-    Y_prediction_test = predict3(w, b, X_test)
-    Y_prediction_train = predict3(w, b, X_train)
+    Y_prediction_test = predict4(w, b, X_test)
+    Y_prediction_train = predict4(w, b, X_train)
 
     d = {"costs": costs,
          "Y_prediction_test": Y_prediction_test, 
@@ -223,7 +223,7 @@ my_image = "test.dibujo.jpg"
 fname = "dibujo/" + my_image
 image = np.array(plt.imread(fname))
 my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
-my_predicted_circle = predict3(arbolread["w"], arbolread["b"], my_image)
+my_predicted_arbol = predict4(arbolread["w"], arbolread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -239,59 +239,58 @@ parametros_tanh2 = gradiente_aprendisaje(X_huevo, y_huevo, dimensiones, theta="t
                    initialization_method="he")
 
 print("Huevo Reading...")
-my_predicted_square = predict3(huevoread["w"], huevoread["b"], my_image)
+my_predicted_huevo = predict4(huevoread["w"], huevoread["b"], my_image)
 print("-------------------------------------------------------------------")
 print("se calcula el interrogacion")
 
 dimensiones = [X_interrogacion.shape[0], 5, 5, 1]
 
-parametros_tanh1 = gradiente_aprendisaje(X_interrogacion, y_interrogacion, dimensiones, theta="tanh",
+parametros_tanh3 = gradiente_aprendisaje(X_interrogacion, y_interrogacion, dimensiones, theta="tanh",
                    initialization_method="he")
 print("-------------------------------------------------------------------")
 print("interrogacion Reading...")
-my_predicted_circle = predict3(interrogacionread["w"], interrogacionread["b"], my_image)
+my_predicted_interrogacion = predict4(interrogacionread["w"], interrogacionread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
-
-
-if ( my_predicted_circle > 0.000001 ):
-    #0.0000041409869
-   print ("Es un arbol")
-   arbol_data=accuracy(X_arbol, parametros_tanh1,y_arbol, "tanh")
-   test_data=accuracy(X_test, parametros_tanh1,y_test, "tanh")
-
+print("arbol")
+arbol_data=accuracy(X_arbol, parametros_tanh1,y_arbol, "tanh")
+test_data_test_arbol=accuracy(X_test, parametros_tanh1,y_test, "tanh")
+print ("huevo")
+huevo_data_huevo=accuracy(X_huevo, parametros_tanh2, y_huevo, "tanh")
+test_data_huevo_test=accuracy(X_test, parametros_tanh2,y_test, "tanh")
+print("test de interrogacion")
+interrogacion_data_interrogacion=accuracy(X_interrogacion, parametros_tanh3, y_interrogacion, "tanh")
+test_data_triste_test=accuracy(X_test, parametros_tanh3,y_test, "tanh")
+print("-------------------------------------------------------------------")
+my_predicted_arbol=float(my_predicted_arbol)
+my_predicted_huevo=float(my_predicted_huevo)
+my_predicted_interrogacion=float(my_predicted_interrogacion)
+if(my_predicted_arbol > my_predicted_huevo) and (my_predicted_arbol > my_predicted_interrogacion):
+    largest=my_predicted_arbol
+    categoria="arbol"
+    print("arbol es mayor")
+    print (my_predicted_arbol)
+    print(arbol_data)
+    print(test_data_test_arbol)
+    accuracy=arbol_data
+elif (my_predicted_huevo > my_predicted_arbol) and (my_predicted_huevo > my_predicted_interrogacion):
+    largest=my_predicted_huevo
+    categoria="huevo"
+    print("huevo es mayor")
+    print (my_predicted_huevo)
+    print(huevo_data_huevo)
+    print(test_data_huevo_test)
+    accuracy=huevo_data_huevo
 else:
-   print ("no es un arbol")
-
-huevo_data=accuracy(X_huevo, parametros_tanh2, y_huevo, "tanh")
-test_data2=accuracy(X_test, parametros_tanh2,y_test, "tanh")
-if ( my_predicted_square > 0.999999):
-    #0.99999586
-    #0.9999781
-    #0.99999172
-   top=Tk()
-   top.geometry("180x180")
-   top.configure(background='blue')
-   Lb1 = Listbox(top)
-   Lb1.insert(1, "El programa es:")
-   Lb1.insert(2, "Un arbol")
-   Lb1.insert(3, (print(accuracy(X_huevo, parametros_tanh2, y_huevo, "tanh"))))
-   Lb1.insert(4,  (accuracy(X_test, parametros_tanh2,y_test, "tanh")))
-   Lb1.pack()
-   top.mainloop()
-   
- 
-else:
-   print ("No es un huevo")
-
-if (0.99999172 > 0.999999):
-    #0.99999586
-    #0.9999781
-    #0.99999172
-   print ("true")
-else:
-   print ("false")
-
+    largest=my_predicted_interrogacion
+    categoria="interrogacion" 
+    print("interrogacion es mayor")
+    print("Prediccion")
+    print (my_predicted_interrogacion)
+    print("Accuracy")
+    print(interrogacion_data_interrogacion)
+    print(test_data_triste_test)
+    accuracy=interrogacion_data_interrogacion
 
 print("-------------------------------------------------------------------")
