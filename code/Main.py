@@ -1,7 +1,8 @@
-import os
-os.system("python Proyecto2-parte1.py")
-os.system("python Proyecto2-parte2.py")
-os.system("python Proyecto2-parte3.py")
+#import os
+print("Reading...")
+#os.system("python Proyecto2-parte1.py")
+#os.system("python Proyecto2-parte2.py")
+#os.system("python Proyecto2-parte3.py")
 import tkinter
 from tkinter import *
 
@@ -61,7 +62,44 @@ for predicionmodelo3 in file_in.read().split('\n'):
 predicionmodelo3=float(predicionmodelo3)
 print(predicionmodelo3)
 
+with open ("bestcase/modulo4.txt", "r") as myfile:
+    data4=myfile.readlines()
+    print(data4)
+x = []
+file_in = open('bestcase/modulo4accuracy.txt', 'r')
+for accuracymodelo4 in file_in.read().split('\n'):
+    if accuracymodelo4.isdigit():
+        x.append(float(accuracymodelo4))
+accuracymodelo4=float(accuracymodelo4)
+print(accuracymodelo4)
+a = []
+file_in = open('bestcase/modulo4predicion.txt', 'r')
+for predicionmodelo4 in file_in.read().split('\n'):
+    if predicionmodelo4.isdigit():
+        a.append(float(predicionmodelo4))
+predicionmodelo4=float(predicionmodelo4)
+print(predicionmodelo4)
 #se inician comparaciones
+if (predicionmodelo4 > 0.8):
+    print(data4)
+    top = Tk()
+    top.geometry("200x200")
+    top.configure(background='blue')
+    Lb1 = Listbox(top)
+    Lb1.insert(1, "Creo que es", data4)
+    Lb1.insert(2, "con", predicionmodelo4,"%")
+    Lb1.pack()
+    top.mainloop()
+    top1 = Tk()
+    top1.geometry("200x200")
+    top1.configure(background='green')
+    Lb1 = Listbox(top1)
+    Lb1.insert(1, "Otras opciones")
+    Lb1.insert(2, data,accuracymodelo1 )
+    Lb1.insert(3, data2, accuracymodelo2, "%")
+    Lb1.insert(4, data3, accuracymodelo3, "%")
+    Lb1.pack()
+    top1.mainloop()
 if(accuracymodelo3 >= accuracymodelo2) and (accuracymodelo3 >= accuracymodelo1) and (predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1):
     print(data3)
     top = Tk()
