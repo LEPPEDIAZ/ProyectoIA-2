@@ -6,7 +6,7 @@ from load_dataset6 import load_dataset6
 from load_dataset7 import load_dataset7
 from load_dataset8 import load_dataset8
 from load_dataset import load_dataset
-from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
+from redesneuronales import (initeparametros,predict4,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
 import scipy
 from PIL import Image
 from scipy import ndimage
@@ -224,6 +224,7 @@ fname = "dibujo/" + my_image
 image = np.array(plt.imread(fname))
 my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
 my_predicted_casa = predict3(casaread["w"], casaread["b"], my_image)
+my_predicted_casa1 = predict4(casaread["w"], casaread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -240,6 +241,7 @@ parametros_tanh2 = gradiente_aprendisaje(X_feliz, y_feliz, dimensiones, theta="t
 
 print("Feliz Reading...")
 my_predicted_feliz = predict3(felizread["w"], felizread["b"], my_image)
+my_predicted_feliz1 = predict4(felizread["w"], felizread["b"], my_image)
 print("-------------------------------------------------------------------")
 print("se calcula la cara triste")
 
@@ -250,6 +252,7 @@ parametros_tanh3 = gradiente_aprendisaje(X_triste, y_triste, dimensiones, theta=
 print("-------------------------------------------------------------------")
 print("Triste Reading...")
 my_predicted_triste = predict3(tristeread["w"], tristeread["b"], my_image)
+my_predicted_triste1 = predict4(tristeread["w"], tristeread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -263,25 +266,28 @@ print("test de triste")
 triste_data_triste=accuracy(X_triste, parametros_tanh3, y_feliz, "tanh")
 test_data_triste_test=accuracy(X_test, parametros_tanh3,y_test, "tanh")
 print("-------------------------------------------------------------------")
-if(my_predicted_casa > my_predicted_triste) and (my_predicted_casa > my_predicted_feliz):
+float(my_predicted_casa1)
+float(my_predicted_feliz1)
+float(my_predicted_triste1)
+if(my_predicted_casa1 > my_predicted_triste1) and (my_predicted_casa1 > my_predicted_feliz1):
     largest=my_predicted_casa
     categoria="casa"
     print("casa es mayor")
-    print (str(predict3(casaread["w"], casaread["b"], my_image)))
+    print (my_predicted_casa1)
     print(casa_data_casa)
-elif (my_predicted_casa < my_predicted_triste) and (my_predicted_casa < my_predicted_feliz):
+elif (my_predicted_casa1 < my_predicted_triste1) and (my_predicted_casa1 < my_predicted_feliz1):
     largest=my_predicted_triste
     categoria="triste"
     print("triste es mayor")
-    print (str(predict3(tristeread["w"], tristeread["b"], my_image)))
+    print (my_predicted_triste1)
     print(triste_data_triste)
 else:
     largest=my_predicted_feliz
     categoria="feliz" 
     print("feliz es mayor")
-    print("-")
-    print (str(predict3(felizread["w"], felizread["b"], my_image)))
-    print("-")
+    print("Prediccion")
+    print (my_predicted_feliz1)
+    print("Accuracy")
     print(feliz_data_feliz)
    
     

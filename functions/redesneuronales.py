@@ -347,6 +347,14 @@ def predict3(w, b, X):
     
     return Y_prediction
 
+def predict4(w, b, X):
+    m = X.shape[1]
+    Y_prediction = np.zeros((1,m))
+    w = w.reshape(X.shape[0], 1)
+    A = sigmoid3(np.dot(w.T, X) + b)
+    [print(x) for x in A]
+    return A
+
 def optimizar(w, b, X, Y, num_iterations, learning_rate, print_costo = False):
     costos = []
     
