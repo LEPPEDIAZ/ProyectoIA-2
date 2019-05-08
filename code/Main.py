@@ -85,6 +85,7 @@ if (predicionmodelo4 > 0.8):
     print(data4)
     top = Tk()
     top.geometry("200x200")
+    predicionmodelo4=predicionmodelo4*100
     top.configure(background='blue')
     Lb1 = Listbox(top)
     Lb1.insert(1, "Creo que es", data4)
@@ -103,6 +104,7 @@ if (predicionmodelo4 > 0.8):
     top1.mainloop()
 if(accuracymodelo3 >= accuracymodelo2) and (accuracymodelo3 >= accuracymodelo1) and (predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1):
     print(data3)
+    predicionmodelo3=predicionmodelo3*100
     top = Tk()
     top.geometry("200x200")
     top.configure(background='blue')
