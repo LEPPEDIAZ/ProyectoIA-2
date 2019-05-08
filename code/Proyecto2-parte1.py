@@ -292,12 +292,15 @@ elif (my_predicted_triangulo > my_predicted_circle) and (my_predicted_triangulo 
     print (my_predicted_triangulo)
     print(triangulo_data_triangulo)
     accuracy=triangulo_data_triangulo
-    text_file = open("bestcase/modulo1.txt", "a")
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo1.txt", "w")
     text_file.write(categoria)
-    text_file1 = open("bestcase/modulo1predicion.txt", "a")
-    text_file1.write(str(my_predicted_triangulo))
-    text_file2 = open("bestcase/modulo1accuracy.txt", "a")
-    text_file2.write(str(triangulo_data_triangulo))
+    text_file = open("bestcase/modulo1predicion.txt", "w")
+    text_file.write(str(my_predicted_triangulo))
+    text_file = open("bestcase/modulo1accuracy.txt", "w")
+    text_file.write(str(triangulo_data_triangulo))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 else:
     largest=my_predicted_square
     categoria="square" 
@@ -307,5 +310,14 @@ else:
     print("Accuracy")
     print(square_data_square)
     accuracy=square_data_square
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo1.txt", "w")
+    text_file.write(categoria)
+    text_file = open("bestcase/modulo1predicion.txt", "w")
+    text_file.write(str(my_predicted_square))
+    text_file = open("bestcase/modulo1accuracy.txt", "w")
+    text_file.write(str(square_data_square))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 
 print("-------------------------------------------------------------------")
