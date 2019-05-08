@@ -273,6 +273,15 @@ if(my_predicted_casa1 > my_predicted_triste1) and (my_predicted_casa1 > my_predi
     print (my_predicted_casa1)
     print(casa_data_casa)
     accuracy=casa_data_casa
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo3.txt", "w")
+    text_file.write(categoria)
+    text_file = open("bestcase/modulo3predicion.txt", "w")
+    text_file.write(str(my_predicted_casa1))
+    text_file = open("bestcase/modulo3accuracy.txt", "w")
+    text_file.write(str(casa_data_casa))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 elif (my_predicted_triste1 > my_predicted_casa1) and (my_predicted_triste1 > my_predicted_feliz1):
     largest=my_predicted_triste1
     categoria="triste"
@@ -280,6 +289,15 @@ elif (my_predicted_triste1 > my_predicted_casa1) and (my_predicted_triste1 > my_
     print (my_predicted_triste1)
     print(triste_data_triste)
     accuracy=triste_data_triste
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo3.txt", "w")
+    text_file.write(categoria)
+    text_file = open("bestcase/modulo3predicion.txt", "w")
+    text_file.write(str(my_predicted_triste1))
+    text_file = open("bestcase/modulo3accuracy.txt", "w")
+    text_file.write(str(triste_data_triste))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 else:
     largest=my_predicted_feliz1
     categoria="feliz" 
@@ -289,5 +307,14 @@ else:
     print("Accuracy")
     print(feliz_data_feliz)
     accuracy=feliz_data_feliz
+    accuracy=float(accuracy)
+    text_file = open("bestcase/modulo3.txt", "w")
+    text_file.write(categoria)
+    text_file = open("bestcase/modulo3predicion.txt", "w")
+    text_file.write(str(my_predicted_feliz1))
+    text_file = open("bestcase/modulo3accuracy.txt", "w")
+    text_file.write(str(feliz_data_feliz))
+    text_file = open("bestcase/accuracy.txt", "w")
+    text_file.write(str(accuracy))
 
 print("-------------------------------------------------------------------")
