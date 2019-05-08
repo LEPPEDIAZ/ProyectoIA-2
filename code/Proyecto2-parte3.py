@@ -272,12 +272,14 @@ if(my_predicted_casa1 > my_predicted_triste1) and (my_predicted_casa1 > my_predi
     print("casa es mayor")
     print (my_predicted_casa1)
     print(casa_data_casa)
+    accuracy=casa_data_casa
 elif (my_predicted_triste1 > my_predicted_casa1) and (my_predicted_triste1 > my_predicted_feliz1):
     largest=my_predicted_triste1
     categoria="triste"
     print("triste es mayor")
     print (my_predicted_triste1)
     print(triste_data_triste)
+    accuracy=triste_data_triste
 else:
     largest=my_predicted_feliz1
     categoria="feliz" 
@@ -286,5 +288,6 @@ else:
     print (my_predicted_feliz1)
     print("Accuracy")
     print(feliz_data_feliz)
+    accuracy=feliz_data_feliz
 
 print("-------------------------------------------------------------------")

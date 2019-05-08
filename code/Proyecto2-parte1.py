@@ -275,12 +275,14 @@ if(my_predicted_circle > my_predicted_triangulo) and (my_predicted_circle > my_p
     print("circulo es mayor")
     print (my_predicted_circle)
     print(circulo_data_circulo)
+    accuracy=circulo_data_circulo
 elif (my_predicted_triangulo > my_predicted_circle) and (my_predicted_triangulo > my_predicted_square):
     largest=my_predicted_triangulo
     categoria="triangulo"
     print("triangulo es mayor")
     print (my_predicted_triangulo)
     print(triangulo_data_triangulo)
+    accuracy=triangulo_data_triangulo
 else:
     largest=my_predicted_square
     categoria="square" 
@@ -289,5 +291,6 @@ else:
     print (my_predicted_square)
     print("Accuracy")
     print(square_data_square)
+    accuracy=square_data_square
 
 print("-------------------------------------------------------------------")
