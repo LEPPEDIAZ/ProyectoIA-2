@@ -180,7 +180,7 @@ def accuracy(X, parametros, y,activacion="relu"):
     labels = (probs >= 0.5) * 1
     accuracy = np.mean(labels == y) * 100
 
-    return print (f"El accuracy es: {accuracy:.2f}%.")
+    return accuracy
 def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate = 0.5, print_cost = False):
     w, b = inicializarconcero(X_train.shape[0])
     parameters, grads, costs = optimizar(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
@@ -245,7 +245,7 @@ print("se calcula la cara triste")
 
 dimensiones = [X_triste.shape[0], 5, 5, 1]
 
-parametros_tanh1 = gradiente_aprendisaje(X_triste, y_triste, dimensiones, theta="tanh",
+parametros_tanh3 = gradiente_aprendisaje(X_triste, y_triste, dimensiones, theta="tanh",
                    initialization_method="he")
 print("-------------------------------------------------------------------")
 print("Triste Reading...")
@@ -253,45 +253,40 @@ my_predicted_triste = predict3(tristeread["w"], tristeread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
-
-
-if ( my_predicted_casa > 0.000001 ):
-    #0.0000041409869
-   print ("Es una casa")
-   casa_data=accuracy(X_casa, parametros_tanh1,y_casa, "tanh")
-   test_data=accuracy(X_test, parametros_tanh1,y_test, "tanh")
-
+print("casa")
+casa_data_casa=accuracy(X_casa, parametros_tanh1,y_casa, "tanh")
+test_data_test_casa=accuracy(X_test, parametros_tanh1,y_test, "tanh")
+print ("test de feliz")
+feliz_data_feliz=accuracy(X_feliz, parametros_tanh2, y_feliz, "tanh")
+test_data_feliz_test=accuracy(X_test, parametros_tanh2,y_test, "tanh")
+print("test de triste")
+triste_data_triste=accuracy(X_triste, parametros_tanh3, y_feliz, "tanh")
+test_data_triste_test=accuracy(X_test, parametros_tanh3,y_test, "tanh")
+print("-------------------------------------------------------------------")
+if(my_predicted_casa > my_predicted_triste) and (my_predicted_casa > my_predicted_feliz):
+    largest=my_predicted_casa
+    categoria="casa"
+    print("casa es mayor")
+    print (str(predict3(casaread["w"], casaread["b"], my_image)))
+    print(casa_data_casa)
+elif (my_predicted_casa < my_predicted_triste) and (my_predicted_casa < my_predicted_feliz):
+    largest=my_predicted_triste
+    categoria="triste"
+    print("triste es mayor")
+    print (str(predict3(tristeread["w"], tristeread["b"], my_image)))
+    print(triste_data_triste)
 else:
-   print ("no es una casa")
-
-feliz_data=accuracy(X_feliz, parametros_tanh2, y_feliz, "tanh")
-test_data2=accuracy(X_test, parametros_tanh2,y_test, "tanh")
-if ( my_predicted_feliz > 0.999999):
-    #0.99999586
-    #0.9999781
-    #0.99999172
-   top=Tk()
-   top.geometry("180x180")
-   top.configure(background='blue')
-   Lb1 = Listbox(top)
-   Lb1.insert(1, "El programa es:")
-   Lb1.insert(2, "Una casa")
-   Lb1.insert(3, (print(accuracy(X_feliz, parametros_tanh2, y_feliz, "tanh"))))
-   Lb1.insert(4,  (accuracy(X_test, parametros_tanh2,y_test, "tanh")))
-   Lb1.pack()
-   top.mainloop()
+    largest=my_predicted_feliz
+    categoria="feliz" 
+    print("feliz es mayor")
+    print("-")
+    print (str(predict3(felizread["w"], felizread["b"], my_image)))
+    print("-")
+    print(feliz_data_feliz)
    
- 
-else:
-   print ("No es una cara feliz")
+    
 
-if (0.99999172 > 0.999999):
-    #0.99999586
-    #0.9999781
-    #0.99999172
-   print ("true")
-else:
-   print ("false")
+
 
 
 print("-------------------------------------------------------------------")
