@@ -1,7 +1,7 @@
-#import os
-#os.system("python Proyecto2-parte1.py")
-#os.system("python Proyecto2-parte2.py")
-#os.system("python Proyecto2-parte3.py")
+import os
+os.system("python Proyecto2-parte1.py")
+os.system("python Proyecto2-parte2.py")
+os.system("python Proyecto2-parte3.py")
 import tkinter
 from tkinter import *
 
@@ -76,7 +76,7 @@ if(accuracymodelo3 >= accuracymodelo2) and (accuracymodelo3 >= accuracymodelo1) 
     top1.geometry("200x200")
     top1.configure(background='green')
     Lb1 = Listbox(top1)
-    Lb1.insert(1, "Otras opciones", data3, "%")
+    Lb1.insert(1, "Otras opciones")
     Lb1.insert(2, data,accuracymodelo1 )
     Lb1.insert(3, data2, accuracymodelo2, "%")
     Lb1.pack()
