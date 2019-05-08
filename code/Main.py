@@ -2,6 +2,8 @@
 #os.system("python Proyecto2-parte1.py")
 #os.system("python Proyecto2-parte2.py")
 #os.system("python Proyecto2-parte3.py")
+import tkinter
+from tkinter import *
 
 #cargando modelo 1
 with open ("bestcase/modulo1.txt", "r") as myfile:
@@ -62,6 +64,15 @@ print(predicionmodelo3)
 #se inician comparaciones
 if(accuracymodelo3 >= accuracymodelo2) and (accuracymodelo3 >= accuracymodelo1) and (predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1):
     print(data3)
+    top = Tk()
+    top.geometry("200x200")
+    top.configure(background='blue')
+    Lb1 = Listbox(top)
+    Lb1.insert(1, "Creo que es", data3)
+    Lb1.insert(2, "con",accuracymodelo3 ,"%")
+    Lb1.insert(3, predicionmodelo3 , "%")
+    Lb1.pack()
+    top.mainloop()
     print("Creo que es",data3, "con", accuracymodelo3 ,"%", " de seguridad")
     print("las siguientes opciones son", data2,"%", accuracymodelo2, "y", data, "%",accuracymodelo1)
 if(accuracymodelo2 >= accuracymodelo1) and (accuracymodelo2 >= accuracymodelo3) and (predicionmodelo2 > predicionmodelo3) and (predicionmodelo2 > predicionmodelo1):
