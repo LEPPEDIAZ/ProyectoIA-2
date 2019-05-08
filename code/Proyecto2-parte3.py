@@ -22,56 +22,56 @@ index_dibujo = np.argmax(y_casa); index_casa = np.argmin(y_casa)
 X_test, y_test = load_dataset("dibujo/")
 index_dibujo = np.argmax(y_test); index_dibujo = np.argmin(y_test)
 
-#se importa huevo
-X_huevo, y_huevo = load_dataset7("data4/")
-index_dibujo = np.argmax(y_huevo); index_huevo = np.argmin(y_huevo)
+#se importa el feliz
+X_feliz, y_feliz = load_dataset7("data4/")
+index_dibujo = np.argmax(y_feliz); index_feliz = np.argmin(y_feliz)
 
 #se importa el interrogacion
 X_interrogacion, y_interrogacion = load_dataset8("data4/")
-index_dibujo = np.argmax(y_huevo); index_interrogacion = np.argmin(y_huevo)
+index_dibujo = np.argmax(y_feliz); index_interrogacion = np.argmin(y_feliz)
 #resshape origin and examples
 casa_set_x_flatten = X_casa.reshape(X_casa.shape[0], -1).T
-huevo_set_x_flatten = X_huevo.reshape(X_huevo.shape[0], -1).T
+feliz_set_x_flatten = X_feliz.reshape(X_feliz.shape[0], -1).T
 interrogacion_set_x_flatten = X_interrogacion.reshape(X_interrogacion.shape[0], -1).T
 test_set_x_flatten = X_test.reshape(X_test.shape[0], -1).T
 #se tienen 5 capas, input, output y 3 capas escondidas
 #constantes que definen el modelo
 #se define la estructura de la red neuronal
 n_x_casa = casa_set_x_flatten.shape[0]
-n_x_huevo = huevo_set_x_flatten.shape[0]
+n_x_feliz = feliz_set_x_flatten.shape[0]
 n_x_interrogacion = interrogacion_set_x_flatten.shape[0]
 n_x_test = test_set_x_flatten.shape[0]
 num_px=150
 n_y = 1 
 nn_layers_casa = [n_x_casa, 20, 7, 5, n_y]
-nn_layers_huevo = [n_x_huevo, 20, 7, 5, n_y]
+nn_layers_feliz = [n_x_feliz, 20, 7, 5, n_y]
 nn_layers_interrogacion = [n_x_interrogacion, 20, 7, 5, n_y]
-print("Capas de casa y huevo")
+print("Capas de casa y feliz")
 print (nn_layers_casa)
-nn_layers_huevo = [n_x_huevo, 20, 7, 5, n_y]
-print (nn_layers_huevo)
+nn_layers_feliz = [n_x_feliz, 20, 7, 5, n_y]
+print (nn_layers_feliz)
 print (nn_layers_interrogacion)
-print(f"""Dimensiones originales para el huevo:\n{20 * '-'}\nData de prueba: {X_huevo.shape}, {y_huevo.shape}
+print(f"""Dimensiones originales para la cara feliz:\n{20 * '-'}\nData de prueba: {X_feliz.shape}, {y_feliz.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para la casa:\n{20 * '-'}\nData de prueba: {X_casa.shape}, {y_casa.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para el interrogacion:\n{20 * '-'}\nData de prueba: {X_interrogacion.shape}, {y_interrogacion.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print ("casa_set_x_flatten shape: " + str(casa_set_x_flatten.shape))
-print ("huevo_set_x_flatten shape: " + str(huevo_set_x_flatten.shape))
+print ("feliz_set_x_flatten shape: " + str(feliz_set_x_flatten.shape))
 print ("interrogacion_set_x_flatten shape: " + str(interrogacion_set_x_flatten.shape))
 print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 
 #debido a que se necesita RBG cada pixel es un vector de numeros de 0 a 255.
-X_huevo = X_huevo / 255
+X_feliz = X_feliz / 255
 X_casa = X_casa / 255
 X_interrogacion = X_interrogacion / 255
 X_test = X_test / 255
-len_huevo=len(X_huevo)
+len_feliz=len(X_feliz)
 len_casa=len(X_casa)
 len_test=len(X_test)
 len_interrogacion=len(X_interrogacion)
-print(len_huevo)
+print(len_feliz)
 print(len_casa)
 print(len_test)
 print(len_interrogacion)
@@ -204,7 +204,7 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
 casaread = model(X_casa, y_casa, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 
 print("-------------------------------------------------------------------")
-huevoread = model(X_huevo,y_huevo, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+felizread = model(X_feliz,y_feliz, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 print("-------------------------------------------------------------------")
 interrogacionread = model(X_interrogacion,y_interrogacion, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 
@@ -229,17 +229,17 @@ my_predicted_casa = predict3(casaread["w"], casaread["b"], my_image)
 print("-------------------------------------------------------------------")
 
 print("-------------------------------------------------------------------")
-print("se calcula el huevo")
+print("se calcula la cara feliz")
 
 
 
-dimensiones = [X_huevo.shape[0], 5, 5, 1]
+dimensiones = [X_feliz.shape[0], 5, 5, 1]
 
-parametros_tanh2 = gradiente_aprendisaje(X_huevo, y_huevo, dimensiones, theta="tanh",
+parametros_tanh2 = gradiente_aprendisaje(X_feliz, y_feliz, dimensiones, theta="tanh",
                    initialization_method="he")
 
-print("Huevo Reading...")
-my_predicted_feliz = predict3(huevoread["w"], huevoread["b"], my_image)
+print("Feliz Reading...")
+my_predicted_feliz = predict3(felizread["w"], felizread["b"], my_image)
 print("-------------------------------------------------------------------")
 print("se calcula el interrogacion")
 
@@ -264,7 +264,7 @@ if ( my_predicted_casa > 0.000001 ):
 else:
    print ("no es una casa")
 
-huevo_data=accuracy(X_huevo, parametros_tanh2, y_huevo, "tanh")
+feliz_data=accuracy(X_feliz, parametros_tanh2, y_feliz, "tanh")
 test_data2=accuracy(X_test, parametros_tanh2,y_test, "tanh")
 if ( my_predicted_feliz > 0.999999):
     #0.99999586
@@ -276,14 +276,14 @@ if ( my_predicted_feliz > 0.999999):
    Lb1 = Listbox(top)
    Lb1.insert(1, "El programa es:")
    Lb1.insert(2, "Una casa")
-   Lb1.insert(3, (print(accuracy(X_huevo, parametros_tanh2, y_huevo, "tanh"))))
+   Lb1.insert(3, (print(accuracy(X_feliz, parametros_tanh2, y_feliz, "tanh"))))
    Lb1.insert(4,  (accuracy(X_test, parametros_tanh2,y_test, "tanh")))
    Lb1.pack()
    top.mainloop()
    
  
 else:
-   print ("No es un huevo")
+   print ("No es una cara feliz")
 
 if (0.99999172 > 0.999999):
     #0.99999586
