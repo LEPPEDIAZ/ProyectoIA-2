@@ -5,7 +5,7 @@ sys.path.append("../functions/")
 from load_dataset import load_dataset
 from load_dataset1 import load_dataset1
 from load_dataset2 import load_dataset2
-from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
+from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict4)
 import scipy
 from PIL import Image
 from scipy import ndimage
@@ -139,7 +139,7 @@ print ("b = " + str(params["b"]))
 print ("dw = " + str(grads["dw"]))
 print ("db = " + str(grads["db"]))
 print("-----------------------------------")
-print ("predictions = " + str(predict3(w, b, X)))
+print ("predictions = " + str(predict4(w, b, X)))
 def gradiente_aprendisaje(
         X, y, dimensiones, curvaaprendisaje=0.01, num_iterations=200,
         print_costo=True, theta="relu", initialization_method="he" ):
@@ -183,7 +183,7 @@ def accuracy(X, parametros, y,activacion="relu"):
     labels = (probs >= 0.5) * 1
     accuracy = np.mean(labels == y) * 100
 
-    return print (f"El accuracy es: {accuracy:.2f}%.")
+    return accuracy
 def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate = 0.5, print_cost = False):
     w, b = inicializarconcero(X_train.shape[0])
     parameters, grads, costs = optimizar(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
@@ -192,8 +192,8 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     b = parameters["b"]
     
 
-    Y_prediction_test = predict3(w, b, X_test)
-    Y_prediction_train = predict3(w, b, X_train)
+    Y_prediction_test = predict4(w, b, X_test)
+    Y_prediction_train = predict4(w, b, X_train)
 
     d = {"costs": costs,
          "Y_prediction_test": Y_prediction_test, 
@@ -226,7 +226,7 @@ my_image = "test.dibujo.jpg"
 fname = "dibujo/" + my_image
 image = np.array(plt.imread(fname))
 my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
-my_predicted_circle = predict3(circuloread["w"], circuloread["b"], my_image)
+my_predicted_circle = predict4(circuloread["w"], circuloread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
@@ -242,59 +242,52 @@ parametros_tanh2 = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, th
                    initialization_method="he")
 
 print("Cuadrado Reading...")
-my_predicted_square = predict3(cuadradoread["w"], cuadradoread["b"], my_image)
+my_predicted_square = predict4(cuadradoread["w"], cuadradoread["b"], my_image)
 print("-------------------------------------------------------------------")
 print("se calcula el triangulo")
 
 dimensiones = [X_triangulo.shape[0], 5, 5, 1]
 
-parametros_tanh1 = gradiente_aprendisaje(X_triangulo, y_triangulo, dimensiones, theta="tanh",
+parametros_tanh3 = gradiente_aprendisaje(X_triangulo, y_triangulo, dimensiones, theta="tanh",
                    initialization_method="he")
 print("-------------------------------------------------------------------")
 print("Triangulo Reading...")
-my_predicted_circle = predict3(trianguloread["w"], trianguloread["b"], my_image)
+my_predicted_triangulo = predict4(trianguloread["w"], trianguloread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
-
-
-if ( my_predicted_circle > 0.000001 ):
-    #0.0000041409869
-   print ("Es un circulo")
-   circulo_data=accuracy(X_circulo, parametros_tanh1,y_circulo, "tanh")
-   test_data=accuracy(X_test, parametros_tanh1,y_test, "tanh")
-
+print("circulo")
+circulo_data_circulo=accuracy(X_circulo, parametros_tanh1,y_circulo, "tanh")
+test_data_test_circulo=accuracy(X_test, parametros_tanh1,y_test, "tanh")
+print ("test de cuadrado")
+cuadrado_data_cuadrado=accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh")
+test_data_cuadrado_test=accuracy(X_test, parametros_tanh2,y_test, "tanh")
+print("test de triangulo")
+triangulo_data_triangulo=accuracy(X_triangulo, parametros_tanh3, y_triangulo, "tanh")
+test_data_triangulo_test=accuracy(X_test, parametros_tanh3,y_test, "tanh")
+print("-------------------------------------------------------------------")
+my_predicted_circle=float(my_predicted_circle)
+my_predicted_square=float(my_predicted_square)
+my_predicted_triangulo=float(my_predicted_triangulo)
+if(my_predicted_circle > my_predicted_triangulo) and (my_predicted_circle > my_predicted_square):
+    largest=my_predicted_circle
+    categoria="circulo"
+    print("circulo es mayor")
+    print (my_predicted_circle)
+    print(circulo_data_circulo)
+elif (my_predicted_triangulo > my_predicted_circle) and (my_predicted_triangulo > my_predicted_square):
+    largest=my_predicted_triangulo
+    categoria="triangulo"
+    print("triangulo es mayor")
+    print (my_predicted_triangulo)
+    print(triangulo_data_triangulo)
 else:
-   print ("no es un circulo")
-
-cuadrado_data=accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh")
-test_data2=accuracy(X_test, parametros_tanh2,y_test, "tanh")
-if ( my_predicted_square > 0.999999):
-    #0.99999586
-    #0.9999781
-    #0.99999172
-   top=Tk()
-   top.geometry("180x180")
-   top.configure(background='blue')
-   Lb1 = Listbox(top)
-   Lb1.insert(1, "El programa es:")
-   Lb1.insert(2, "Un circulo")
-   Lb1.insert(3, (print(accuracy(X_cuadrado, parametros_tanh2, y_cuadrado, "tanh"))))
-   Lb1.insert(4,  (accuracy(X_test, parametros_tanh2,y_test, "tanh")))
-   Lb1.pack()
-   top.mainloop()
-   
- 
-else:
-   print ("No es un cuadrado")
-
-if (0.99999172 > 0.999999):
-    #0.99999586
-    #0.9999781
-    #0.99999172
-   print ("true")
-else:
-   print ("false")
-
+    largest=my_predicted_square
+    categoria="square" 
+    print("square es mayor")
+    print("Prediccion")
+    print (my_predicted_square)
+    print("Accuracy")
+    print(square_data_square)
 
 print("-------------------------------------------------------------------")
