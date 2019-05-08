@@ -26,55 +26,55 @@ index_dibujo = np.argmax(y_test); index_dibujo = np.argmin(y_test)
 X_feliz, y_feliz = load_dataset7("data4/")
 index_dibujo = np.argmax(y_feliz); index_feliz = np.argmin(y_feliz)
 
-#se importa el interrogacion
-X_interrogacion, y_interrogacion = load_dataset8("data4/")
-index_dibujo = np.argmax(y_feliz); index_interrogacion = np.argmin(y_feliz)
+#se importa la cara triste
+X_triste, y_triste = load_dataset8("data4/")
+index_dibujo = np.argmax(y_feliz); index_triste = np.argmin(y_feliz)
 #resshape origin and examples
 casa_set_x_flatten = X_casa.reshape(X_casa.shape[0], -1).T
 feliz_set_x_flatten = X_feliz.reshape(X_feliz.shape[0], -1).T
-interrogacion_set_x_flatten = X_interrogacion.reshape(X_interrogacion.shape[0], -1).T
+triste_set_x_flatten = X_triste.reshape(X_triste.shape[0], -1).T
 test_set_x_flatten = X_test.reshape(X_test.shape[0], -1).T
 #se tienen 5 capas, input, output y 3 capas escondidas
 #constantes que definen el modelo
 #se define la estructura de la red neuronal
 n_x_casa = casa_set_x_flatten.shape[0]
 n_x_feliz = feliz_set_x_flatten.shape[0]
-n_x_interrogacion = interrogacion_set_x_flatten.shape[0]
+n_x_triste = triste_set_x_flatten.shape[0]
 n_x_test = test_set_x_flatten.shape[0]
 num_px=150
 n_y = 1 
 nn_layers_casa = [n_x_casa, 20, 7, 5, n_y]
 nn_layers_feliz = [n_x_feliz, 20, 7, 5, n_y]
-nn_layers_interrogacion = [n_x_interrogacion, 20, 7, 5, n_y]
+nn_layers_triste = [n_x_triste, 20, 7, 5, n_y]
 print("Capas de casa y feliz")
 print (nn_layers_casa)
 nn_layers_feliz = [n_x_feliz, 20, 7, 5, n_y]
 print (nn_layers_feliz)
-print (nn_layers_interrogacion)
+print (nn_layers_triste)
 print(f"""Dimensiones originales para la cara feliz:\n{20 * '-'}\nData de prueba: {X_feliz.shape}, {y_feliz.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print(f"""Dimensiones originales para la casa:\n{20 * '-'}\nData de prueba: {X_casa.shape}, {y_casa.shape}
 Test: {X_test.shape}, {y_test.shape}""")
-print(f"""Dimensiones originales para el interrogacion:\n{20 * '-'}\nData de prueba: {X_interrogacion.shape}, {y_interrogacion.shape}
+print(f"""Dimensiones originales para la cara triste:\n{20 * '-'}\nData de prueba: {X_triste.shape}, {y_triste.shape}
 Test: {X_test.shape}, {y_test.shape}""")
 print ("casa_set_x_flatten shape: " + str(casa_set_x_flatten.shape))
 print ("feliz_set_x_flatten shape: " + str(feliz_set_x_flatten.shape))
-print ("interrogacion_set_x_flatten shape: " + str(interrogacion_set_x_flatten.shape))
+print ("triste_set_x_flatten shape: " + str(triste_set_x_flatten.shape))
 print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 
 #debido a que se necesita RBG cada pixel es un vector de numeros de 0 a 255.
 X_feliz = X_feliz / 255
 X_casa = X_casa / 255
-X_interrogacion = X_interrogacion / 255
+X_triste = X_triste / 255
 X_test = X_test / 255
 len_feliz=len(X_feliz)
 len_casa=len(X_casa)
 len_test=len(X_test)
-len_interrogacion=len(X_interrogacion)
+len_triste=len(X_triste)
 print(len_feliz)
 print(len_casa)
 print(len_test)
-print(len_interrogacion)
+print(len_triste)
 test_dataset=X_casa, y_casa
 classes = np.array(test_dataset)
 index = 25
@@ -206,7 +206,7 @@ casaread = model(X_casa, y_casa, X_test, y_test, num_iterations = 100, learning_
 print("-------------------------------------------------------------------")
 felizread = model(X_feliz,y_feliz, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 print("-------------------------------------------------------------------")
-interrogacionread = model(X_interrogacion,y_interrogacion, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
+tristeread = model(X_triste,y_triste, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
@@ -241,15 +241,15 @@ parametros_tanh2 = gradiente_aprendisaje(X_feliz, y_feliz, dimensiones, theta="t
 print("Feliz Reading...")
 my_predicted_feliz = predict3(felizread["w"], felizread["b"], my_image)
 print("-------------------------------------------------------------------")
-print("se calcula el interrogacion")
+print("se calcula la cara triste")
 
-dimensiones = [X_interrogacion.shape[0], 5, 5, 1]
+dimensiones = [X_triste.shape[0], 5, 5, 1]
 
-parametros_tanh1 = gradiente_aprendisaje(X_interrogacion, y_interrogacion, dimensiones, theta="tanh",
+parametros_tanh1 = gradiente_aprendisaje(X_triste, y_triste, dimensiones, theta="tanh",
                    initialization_method="he")
 print("-------------------------------------------------------------------")
-print("interrogacion Reading...")
-my_predicted_triste = predict3(interrogacionread["w"], interrogacionread["b"], my_image)
+print("Triste Reading...")
+my_predicted_triste = predict3(tristeread["w"], tristeread["b"], my_image)
 #my_predicted_image = predict3(d["w"], d["b"], image)
 #print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
