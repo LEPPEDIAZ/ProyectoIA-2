@@ -102,7 +102,7 @@ if (predicionmodelo4 > 0.8):
     Lb1.insert(4, data3, accuracymodelo3, "%")
     Lb1.pack()
     top1.mainloop()
-if(accuracymodelo3 >= accuracymodelo2) and (accuracymodelo3 >= accuracymodelo1) and (predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1):
+elif(accuracymodelo3 >= accuracymodelo2) and (accuracymodelo3 >= accuracymodelo1) and (predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1):
     print(data3)
     predicionmodelo3=predicionmodelo3*100
     top = Tk()
@@ -124,7 +124,7 @@ if(accuracymodelo3 >= accuracymodelo2) and (accuracymodelo3 >= accuracymodelo1) 
     top1.mainloop()
     print("Creo que es",data3, "con", accuracymodelo3 ,"%", " de seguridad")
     print("las siguientes opciones son", data2,"%", accuracymodelo2, "y", data, "%",accuracymodelo1)
-if(predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1):
+elif(predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1):
     print(data3)
     predicionmodelo3=predicionmodelo3*100
     top = Tk()
@@ -146,7 +146,7 @@ if(predicionmodelo3 > predicionmodelo2) and (predicionmodelo3 > predicionmodelo1
     top1.mainloop()
     print("Creo que es",data3, "con", accuracymodelo3 ,"%", " de seguridad")
     print("las siguientes opciones son", data2,"%", accuracymodelo2, "y", data, "%",accuracymodelo1)
-if(predicionmodelo2 > predicionmodelo3) and (predicionmodelo2 > predicionmodelo1):
+elif(predicionmodelo2 > predicionmodelo3) and (predicionmodelo2 > predicionmodelo1):
     print(data3)
     print("Creo que es",data2, "con", accuracymodelo2 ,"%", " de seguridad")
     print("las siguientes opciones son", data3,"%", accuracymodelo3, "y", data,"%", accuracymodelo1)
@@ -168,7 +168,7 @@ if(predicionmodelo2 > predicionmodelo3) and (predicionmodelo2 > predicionmodelo1
     Lb1.insert(3, data3, accuracymodelo3, "%")
     Lb1.pack()
     top1.mainloop()
-if(accuracymodelo1 >= accuracymodelo3) and (accuracymodelo1 >= accuracymodelo2) and (predicionmodelo1 > predicionmodelo3) and (predicionmodelo1 > predicionmodelo2):
+elif(accuracymodelo1 >= accuracymodelo3) and (accuracymodelo1 >= accuracymodelo2) and (predicionmodelo1 > predicionmodelo3) and (predicionmodelo1 > predicionmodelo2):
     top = Tk()
     top.geometry("200x200")
     top.configure(background='blue')
