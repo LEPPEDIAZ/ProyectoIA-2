@@ -211,7 +211,7 @@ interrogacionread = model(X_interrogacion,y_interrogacion, X_test, y_test, num_i
 print("-------------------------------------------------------------------")
 print("se calcula el arbol")
 
-dimensiones = [X_arbol.shape[0], 5, 5, 1]
+dimensiones = [X_arbol.shape[0], 5, 1]
 
 parametros_tanh1 = gradiente_aprendisaje(X_arbol, y_arbol, dimensiones, theta="tanh",
                    initialization_method="he")
@@ -230,7 +230,7 @@ print("se calcula el huevo")
 
 
 
-dimensiones = [X_huevo.shape[0], 5, 5, 1]
+dimensiones = [X_huevo.shape[0], 5, 1]
 
 parametros_tanh2 = gradiente_aprendisaje(X_huevo, y_huevo, dimensiones, theta="tanh",
                    initialization_method="he")
@@ -240,7 +240,7 @@ my_predicted_huevo = predict4(huevoread["w"], huevoread["b"], my_image)
 print("-------------------------------------------------------------------")
 print("se calcula el interrogacion")
 
-dimensiones = [X_interrogacion.shape[0], 5, 5, 1]
+dimensiones = [X_interrogacion.shape[0], 5, 1]
 
 parametros_tanh3 = gradiente_aprendisaje(X_interrogacion, y_interrogacion, dimensiones, theta="tanh",
                    initialization_method="he")

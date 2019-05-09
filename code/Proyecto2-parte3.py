@@ -211,7 +211,7 @@ tristeread = model(X_triste,y_triste, X_test, y_test, num_iterations = 100, lear
 print("-------------------------------------------------------------------")
 print("se calcula la casa")
 
-dimensiones = [X_casa.shape[0], 5, 5, 1]
+dimensiones = [X_casa.shape[0], 5, 1]
 
 parametros_tanh1 = gradiente_aprendisaje(X_casa, y_casa, dimensiones, theta="tanh",
                    initialization_method="he")
@@ -230,7 +230,7 @@ print("se calcula la cara feliz")
 
 
 
-dimensiones = [X_feliz.shape[0], 5, 5, 1]
+dimensiones = [X_feliz.shape[0], 5, 1]
 
 parametros_tanh2 = gradiente_aprendisaje(X_feliz, y_feliz, dimensiones, theta="tanh",
                    initialization_method="he")
@@ -240,7 +240,7 @@ my_predicted_feliz1 = predict4(felizread["w"], felizread["b"], my_image)
 print("-------------------------------------------------------------------")
 print("se calcula la cara triste")
 
-dimensiones = [X_triste.shape[0], 5, 5, 1]
+dimensiones = [X_triste.shape[0], 5, 1]
 
 parametros_tanh3 = gradiente_aprendisaje(X_triste, y_triste, dimensiones, theta="tanh",
                    initialization_method="he")

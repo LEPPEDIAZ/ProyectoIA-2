@@ -209,7 +209,7 @@ trianguloread = model(X_triangulo,y_triangulo, X_test, y_test, num_iterations = 
 print("-------------------------------------------------------------------")
 print("se calcula el circulo")
 
-dimensiones = [X_circulo.shape[0], 5, 5, 1]
+dimensiones = [X_circulo.shape[0], 5, 1]
 
 parametros_tanh1 = gradiente_aprendisaje(X_circulo, y_circulo, dimensiones, theta="tanh",
                    initialization_method="he")
@@ -228,7 +228,7 @@ print("se calcula el cuadrado")
 
 
 
-dimensiones = [X_cuadrado.shape[0], 5, 5, 1]
+dimensiones = [X_cuadrado.shape[0], 5, 1]
 
 parametros_tanh2 = gradiente_aprendisaje(X_cuadrado, y_cuadrado, dimensiones, theta="tanh",
                    initialization_method="he")
@@ -238,7 +238,7 @@ my_predicted_square = predict4(cuadradoread["w"], cuadradoread["b"], my_image)
 print("-------------------------------------------------------------------")
 print("se calcula el triangulo")
 
-dimensiones = [X_triangulo.shape[0], 5, 5, 1]
+dimensiones = [X_triangulo.shape[0], 5, 1]
 
 parametros_tanh3 = gradiente_aprendisaje(X_triangulo, y_triangulo, dimensiones, theta="tanh",
                    initialization_method="he")

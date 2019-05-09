@@ -205,7 +205,7 @@ casaread = model(X_casa, y_casa, X_test, y_test, num_iterations = 100, learning_
 print("-------------------------------------------------------------------")
 print("se calcula Mickey")
 
-dimensiones = [X_casa.shape[0], 5, 5, 1]
+dimensiones = [X_casa.shape[0], 5, 1]
 
 parametros_tanh1 = gradiente_aprendisaje(X_casa, y_casa, dimensiones, theta="tanh",
                    initialization_method="he")
@@ -224,14 +224,14 @@ print("se calcula la cara feliz")
 
 
 
-dimensiones = [X_feliz.shape[0], 5, 5, 1]
+dimensiones = [X_feliz.shape[0], 5, 1]
 
 
 print("Feliz Reading...")
 print("-------------------------------------------------------------------")
 print("se calcula la cara triste")
 
-dimensiones = [X_triste.shape[0], 5, 5, 1]
+dimensiones = [X_triste.shape[0], 5, 1]
 
 print("-------------------------------------------------------------------")
 print("Triste Reading...")
