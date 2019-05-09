@@ -6,7 +6,7 @@ from load_dataset9 import load_dataset9
 from load_dataset import load_dataset
 from load_dataset8 import load_dataset8
 from load_dataset7 import load_dataset7
-from redesneuronales import (initeparametros,predict4,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict3)
+from redesneuronales import (predict4,optimizar,sigmoid,propagate2,tanh,relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros)
 import scipy
 from PIL import Image
 from scipy import ndimage

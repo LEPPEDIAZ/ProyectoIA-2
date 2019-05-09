@@ -5,7 +5,7 @@ sys.path.append("../functions/")
 from load_dataset import load_dataset
 from load_dataset1 import load_dataset1
 from load_dataset2 import load_dataset2
-from redesneuronales import (initeparametros,optimizar,sigmoid_backward,propagate,propagate2,linear_backward,L_model_forward,initeparametros2,calcular_costo,linear_forward,linear_activation_forward,sigmoid,sigmoid2,tanh,relu,relu2,leaky_relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict, predict2,predict4)
+from redesneuronales import (optimizar,propagate2,sigmoid,tanh,relu,feed_forward, feed_act_forward, feed_foward_model,obtener_costo,gradiente_de_sigmoid,gradiente_de_tanh, gradiente_relu, backpropagation,act_backpropagation, modelo_backpropagation, update_parametros, predict4)
 import scipy
 from PIL import Image
 from scipy import ndimage
