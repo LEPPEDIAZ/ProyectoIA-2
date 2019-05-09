@@ -144,7 +144,7 @@ def gradiente_aprendisaje(
     np.random.seed(1)
 
   
-    #parametros = initeparametros(dimensiones)
+
 
     costo_list = []
 
@@ -165,7 +165,7 @@ def gradiente_aprendisaje(
         grados = modelo_backpropagation(AL, y, caches, theta)
         parametros = update_parametros(parametros, grados, curvaaprendisaje)
         if (i + 1) % 100 == 0 and print_costo:
-            print(f"El costo despues de  {i + 1} interaciones es: {costo:.4f}")
+            print(f"{i + 1} : {costo:.4f}")
 
         if i % 100 == 0:
             costo_list.append(costo)
@@ -192,13 +192,13 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     Y_prediction_test = predict4(w, b, X_test)
     Y_prediction_train = predict4(w, b, X_train)
 
-    d = {"costs": costs,
-         "Y_prediction_test": Y_prediction_test, 
-         "Y_prediction_train" : Y_prediction_train, 
+    d = {"costos": costs,
+         "Y_pred_test": Y_prediction_test, 
+         "Y_pred_variable" : Y_prediction_train, 
          "w" : w, 
          "b" : b,
          "learning_rate" : learning_rate,
-         "num_iterations": num_iterations}
+         "cantidad_iteraciones": num_iterations}
     
     return d
 arbolread = model(X_arbol, y_arbol, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
@@ -208,8 +208,6 @@ huevoread = model(X_huevo,y_huevo, X_test, y_test, num_iterations = 100, learnin
 print("-------------------------------------------------------------------")
 interrogacionread = model(X_interrogacion,y_interrogacion, X_test, y_test, num_iterations = 100, learning_rate = 0.005, print_cost = False)
 
-#my_predicted_image = predict3(d["w"], d["b"], image)
-#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
 print("-------------------------------------------------------------------")
 print("se calcula el arbol")
 
@@ -224,8 +222,7 @@ fname = "dibujo/" + my_image
 image = np.array(plt.imread(fname))
 my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
 my_predicted_arbol = predict4(arbolread["w"], arbolread["b"], my_image)
-#my_predicted_image = predict3(d["w"], d["b"], image)
-#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
+
 print("-------------------------------------------------------------------")
 
 print("-------------------------------------------------------------------")
@@ -250,8 +247,7 @@ parametros_tanh3 = gradiente_aprendisaje(X_interrogacion, y_interrogacion, dimen
 print("-------------------------------------------------------------------")
 print("interrogacion Reading...")
 my_predicted_interrogacion = predict4(interrogacionread["w"], interrogacionread["b"], my_image)
-#my_predicted_image = predict3(d["w"], d["b"], image)
-#print("y = " + str(np.squeeze(my_predicted_image)) + ", el algoritmo predice que es \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\".")
+
 print("-------------------------------------------------------------------")
 print("arbol")
 arbol_data=accuracy(X_arbol, parametros_tanh1,y_arbol, "tanh")
